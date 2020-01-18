@@ -27,7 +27,7 @@ public abstract class WordRoomDatabase : RoomDatabase() {
                     WordRoomDatabase::class.java,
                     "Word_database"
                 ).addCallback(WordDatabaseCallback(scope))
-                 .build()
+                    .build()
                 INSTANCE = instance
                 instance
             }
@@ -46,12 +46,15 @@ public abstract class WordRoomDatabase : RoomDatabase() {
                 }
             }
         }
-       suspend fun populateDatabase(wordDao: WordDao) {
+
+        suspend fun populateDatabase(wordDao: WordDao) {
             wordDao.deleteAll()
 
-            var word = Word("Hello")
+            var word = Word("Медицина", "medicine")
             wordDao.insert(word)
-            word = Word("World!")
+            word = Word("Быт", "human")
+            wordDao.insert(word)
+            word = Word("Безопасность И Сети", "security")
             wordDao.insert(word)
         }
     }

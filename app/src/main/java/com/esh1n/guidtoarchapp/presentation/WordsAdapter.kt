@@ -4,10 +4,12 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.esh1n.guidtoarchapp.R
 import com.esh1n.guidtoarchapp.data.Word
+import com.esh1n.guidtoarchapp.presentation.utils.UiUtils
 
 
 class WordListAdapter internal constructor(
@@ -18,7 +20,14 @@ class WordListAdapter internal constructor(
     private var words = emptyList<Word>() // Cached copy of words
 
     inner class WordViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val wordItemView: TextView = itemView.findViewById(R.id.textView)
+        private val titleTextView: TextView = itemView.findViewById(R.id.tv_title)
+        private val categoryImageView:ImageView = itemView.findViewById(R.id.iv_category_logo)
+
+        fun populate(word:Word){
+            titleTextView.text = word.word
+            val categoryImageSource = UiUtils.getCategoryImage(itemView.context,word.iconId)
+            categoryImageView.setImageResource(categoryImageSource)
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WordViewHolder {
@@ -28,7 +37,7 @@ class WordListAdapter internal constructor(
 
     override fun onBindViewHolder(holder: WordViewHolder, position: Int) {
         val current = words[position]
-        holder.wordItemView.text = current.word
+        holder.populate(current)
     }
 
     internal fun setWords(words: List<Word>) {

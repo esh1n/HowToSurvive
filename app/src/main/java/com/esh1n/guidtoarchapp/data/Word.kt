@@ -8,5 +8,7 @@ import androidx.room.PrimaryKey
 class Word(
     @PrimaryKey
     @ColumnInfo(name = "word")
-    val word: String
+    val word: String,
+    @ColumnInfo(name = "icon_id")
+    val iconId:String
 )

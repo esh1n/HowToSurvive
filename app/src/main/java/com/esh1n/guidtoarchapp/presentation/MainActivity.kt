@@ -9,11 +9,11 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.esh1n.guidtoarchapp.R
 import com.esh1n.guidtoarchapp.data.Word
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -31,8 +31,9 @@ class MainActivity : AppCompatActivity() {
 
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerview)
         adapter = WordListAdapter(this)
-
+        val dividerItemDecoration = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
         recyclerView.adapter = adapter
+        recyclerView.addItemDecoration(dividerItemDecoration)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         fab.setOnClickListener {
@@ -70,14 +71,15 @@ class MainActivity : AppCompatActivity() {
 
         if (requestCode == newWordActivityRequestCode && resultCode == Activity.RESULT_OK) {
             data?.let {
-                val word = Word(it.getStringExtra(NewWordActivity.EXTRA_REPLY))
+                val word = Word(it.getStringExtra(NewWordActivity.EXTRA_REPLY), "human")
                 wordViewModel.insert(word)
             }
         } else {
             Toast.makeText(
                 applicationContext,
                 R.string.empty_not_saved,
-                Toast.LENGTH_LONG).show()
+                Toast.LENGTH_LONG
+            ).show()
         }
     }
 

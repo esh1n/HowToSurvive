@@ -13,20 +13,31 @@ import com.esh1n.guidtoarchapp.presentation.utils.UiUtils
 
 
 class WordListAdapter internal constructor(
-    context: Context
+    context: Context,
+    private val clickOnItem: (Word) -> (Unit)
 ) : RecyclerView.Adapter<WordListAdapter.WordViewHolder>() {
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
     private var words = emptyList<Word>() // Cached copy of words
 
-    inner class WordViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class WordViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
+        View.OnClickListener {
         private val titleTextView: TextView = itemView.findViewById(R.id.tv_title)
-        private val categoryImageView:ImageView = itemView.findViewById(R.id.iv_category_logo)
+        private val categoryImageView: ImageView = itemView.findViewById(R.id.iv_category_logo)
 
-        fun populate(word:Word){
+        init {
+            itemView.setOnClickListener(this)
+        }
+
+        fun populate(word: Word) {
             titleTextView.text = word.word
-            val categoryImageSource = UiUtils.getCategoryImage(itemView.context,word.iconId)
+            val categoryImageSource = UiUtils.getCategoryImage(itemView.context, word.iconId)
             categoryImageView.setImageResource(categoryImageSource)
+        }
+
+        override fun onClick(v: View?) {
+            val category = words[adapterPosition]
+            clickOnItem(category)
         }
     }
 

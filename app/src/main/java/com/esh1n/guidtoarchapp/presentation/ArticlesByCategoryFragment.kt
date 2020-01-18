@@ -22,13 +22,7 @@ class ArticlesByCategoryFragment : Fragment(R.layout.fragment_articles) {
 
     companion object {
         const val ARG = "articles"
-        fun newInstance(articles: String): ArticlesByCategoryFragment {
-            return ArticlesByCategoryFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG, articles)
-                }
-            }
-        }
+
     }
 
 }

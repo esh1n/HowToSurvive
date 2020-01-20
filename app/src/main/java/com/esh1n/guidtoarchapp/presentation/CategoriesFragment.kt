@@ -27,8 +27,7 @@ class CategoriesFragment : Fragment(R.layout.fragment_categories) {
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerview)
         adapter = WordListAdapter(requireActivity(), this::openArticlesByCategory)
-        val dividerItemDecoration =
-            DividerItemDecoration(requireActivity(), DividerItemDecoration.VERTICAL)
+        val dividerItemDecoration = DividerItemDecoration(requireActivity(), DividerItemDecoration.VERTICAL)
         recyclerView.adapter = adapter
         recyclerView.addItemDecoration(dividerItemDecoration)
         recyclerView.layoutManager = LinearLayoutManager(requireActivity())
@@ -66,11 +65,10 @@ class CategoriesFragment : Fragment(R.layout.fragment_categories) {
 
     private fun openArticlesByCategory(word: Word) {
         val art = getArticlesByCategory(word.word)
-        val articles: String = art.joinToString(separator = ",")
-        fragmentManager.addFragmentToStack(ArticlesByCategoryFragment.newInstance(articles))
+        fragmentManager.addFragmentToStack(ArticlesByCategoryFragment.newInstance(art))
     }
 
-    private fun getArticlesByCategory(category: String): List<String> {
+    private fun getArticlesByCategory(category: String): ArrayList<String> {
         return when (category) {
             "Медицина" -> arrayListOf("Перелом", "Ожег", "Купола")
             "Быт" -> arrayListOf("Духо", "Скрепность", "Рик и Морти")

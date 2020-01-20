@@ -70,8 +70,8 @@ class CategoriesFragment : Fragment(R.layout.fragment_categories) {
 
     private fun getArticlesByCategory(category: String): ArrayList<String> {
         return when (category) {
-            "Медицина" -> arrayListOf("Перелом", "Ожег", "Купола")
-            "Быт" -> arrayListOf("Духо", "Скрепность", "Рик и Морти")
+            "Медицина" -> arrayListOf("Перелом", "Ожег", "Бинт")
+            "Быт" -> arrayListOf("Быт1 ", "Быт2", "Быт3")
             else -> arrayListOf("logovo", "elfov")
         }
     }

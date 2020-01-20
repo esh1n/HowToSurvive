@@ -19,4 +19,13 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="content_text">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="headline_title">
+        <item name="android:textSize">36sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
 </resources>

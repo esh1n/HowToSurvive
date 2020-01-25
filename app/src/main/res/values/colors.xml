@@ -5,4 +5,10 @@
     <color name="colorAccent">#D81B60</color>
 
     <color name="buttonLabel">#d3d3d3</color>
+
+    <color name="bottom_menu_inactive">#8a8a8f</color>
+    <color name="gray_bottom_menu">#777777</color>
+    <color name="bottom_menu_active">#d337e1</color>
+
+    <color name="gray_border_bottom_navigation">#4c000000</color>
 </resources>

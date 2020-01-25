@@ -4,4 +4,10 @@
     <string name="hint_word">Word...</string>
     <string name="button_save">Save</string>
     <string name="empty_not_saved">Word not saved because it is empty.</string>
+    <string name="menu_main_screen">Главный экран</string>
+    <string name="menu_saved_articles">Сохраненные</string>
+    <string name="menu_saved_phones">Телефоны</string>
+    <string name="child_fragment">Child Fragment</string>
+    <string name="add_child_screen">Add child fragment</string>
+
 </resources>

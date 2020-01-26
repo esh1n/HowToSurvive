@@ -12,10 +12,10 @@ import com.esh1n.guidtoarchapp.data.Word
 import com.esh1n.guidtoarchapp.presentation.utils.UiUtils
 
 
-class WordListAdapter internal constructor(
+class CategoriesAdapter internal constructor(
     context: Context,
     private val clickOnItem: (Word) -> (Unit)
-) : RecyclerView.Adapter<WordListAdapter.WordViewHolder>() {
+) : RecyclerView.Adapter<CategoriesAdapter.WordViewHolder>() {
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
     private var words = emptyList<Word>() // Cached copy of words
@@ -42,7 +42,7 @@ class WordListAdapter internal constructor(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WordViewHolder {
-        val itemView = inflater.inflate(R.layout.recyclerview_item, parent, false)
+        val itemView = inflater.inflate(R.layout.item_category, parent, false)
         return WordViewHolder(itemView)
     }
 

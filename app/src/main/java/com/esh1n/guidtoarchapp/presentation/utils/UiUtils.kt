@@ -7,4 +7,8 @@ object UiUtils {
         val res = "${prefix}category_$iconId"
         return context.resources.getIdentifier(res, "drawable", context.packageName)
     }
+
+    fun getImageByPath(context: Context, iconId: String): Int {
+        return context.resources.getIdentifier(iconId, "drawable", context.packageName)
+    }
 }

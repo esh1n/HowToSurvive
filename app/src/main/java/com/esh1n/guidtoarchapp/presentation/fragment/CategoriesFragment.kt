@@ -1,4 +1,4 @@
-package com.esh1n.guidtoarchapp.presentation
+package com.esh1n.guidtoarchapp.presentation.fragment
 
 import android.app.Activity
 import android.content.Intent
@@ -8,26 +8,32 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.esh1n.guidtoarchapp.R
 import com.esh1n.guidtoarchapp.data.Word
+import com.esh1n.guidtoarchapp.presentation.CategoriesAdapter
+import com.esh1n.guidtoarchapp.presentation.NewWordActivity
+import com.esh1n.guidtoarchapp.presentation.WordViewModel
+import com.esh1n.guidtoarchapp.presentation.adapter.SpaceItemDecoration
 import com.esh1n.guidtoarchapp.presentation.utils.addFragmentToStack
 
 class CategoriesFragment : Fragment(R.layout.fragment_categories) {
 
     private lateinit var wordViewModel: WordViewModel
 
-    private var adapter: WordListAdapter? = null
+    private var adapter: CategoriesAdapter? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         wordViewModel = ViewModelProviders.of(this).get(WordViewModel::class.java)
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerview)
-        adapter = WordListAdapter(requireActivity(), this::openArticlesByCategory)
-        val dividerItemDecoration = DividerItemDecoration(requireActivity(), DividerItemDecoration.VERTICAL)
+        adapter = CategoriesAdapter(
+            requireActivity(),
+            this::openArticlesByCategory
+        )
+        val dividerItemDecoration = SpaceItemDecoration(32)
         recyclerView.adapter = adapter
         recyclerView.addItemDecoration(dividerItemDecoration)
         recyclerView.layoutManager = LinearLayoutManager(requireActivity())
@@ -40,7 +46,7 @@ class CategoriesFragment : Fragment(R.layout.fragment_categories) {
     }
 
     private fun observeData() {
-        wordViewModel.allWords.observe(this, Observer { words ->
+        wordViewModel.allWords.observe(viewLifecycleOwner, Observer { words ->
             // Update the cached copy of the words in the adapter.
             words?.let { adapter?.setWords(it) }
         })

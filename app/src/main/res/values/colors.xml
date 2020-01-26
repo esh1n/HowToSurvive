@@ -11,4 +11,5 @@
     <color name="bottom_menu_active">#d337e1</color>
 
     <color name="gray_border_bottom_navigation">#4c000000</color>
+    <color name="light_gray">#F1F1F1</color>
 </resources>

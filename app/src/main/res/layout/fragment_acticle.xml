@@ -2,23 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@android:color/white"
     android:orientation="vertical"
     android:padding="@dimen/big_padding">
 
-    <TextView
-        android:id="@+id/tv_headline"
-        style="@style/word_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Title" />
-
-    <TextView
-        android:id="@+id/tv_content"
-        style="@style/content_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/big_padding"
-        android:text="Text adasdasdasdasdasd" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        tools:listitem="@layout/item_article" />
 
 </LinearLayout>

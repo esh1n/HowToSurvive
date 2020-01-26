@@ -2,7 +2,6 @@ package com.esh1n.guidtoarchapp.presentation.fragment
 
 
 import androidx.fragment.app.Fragment
-import com.esh1n.guidtoarchapp.presentation.CategoriesFragment
 
 enum class MainFragmentTab(val value: Int) {
     MAIN_SCREEN(0), SAVED_ARTICLES(1), PHONES(2);

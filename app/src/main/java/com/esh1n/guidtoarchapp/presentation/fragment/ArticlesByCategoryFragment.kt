@@ -1,4 +1,4 @@
-package com.esh1n.guidtoarchapp.presentation
+package com.esh1n.guidtoarchapp.presentation.fragment
 
 import android.os.Bundle
 import android.view.View
@@ -39,7 +39,8 @@ class ArticlesByCategoryFragment : Fragment(R.layout.fragment_articles) {
         const val ARG = "articles"
 
         fun newInstance(articles: ArrayList<String>): ArticlesByCategoryFragment {
-            return ArticlesByCategoryFragment().apply {
+            return ArticlesByCategoryFragment()
+                .apply {
                 arguments = Bundle().apply {
                     putStringArrayList(ARG, articles)
                 }

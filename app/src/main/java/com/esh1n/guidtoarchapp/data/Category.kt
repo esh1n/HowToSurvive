@@ -4,11 +4,11 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "word_table")
-class Word(
+@Entity(tableName = "category_table")
+class Category(
     @PrimaryKey
-    @ColumnInfo(name = "word")
-    val word: String,
+    @ColumnInfo(name = "name")
+    val name: String,
     @ColumnInfo(name = "icon_id")
     val iconId:String
 )

@@ -10,23 +10,24 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
-@Database(entities = [Word::class], version = 1)
-public abstract class WordRoomDatabase : RoomDatabase() {
-    abstract fun wordDao(): WordDao
+@Database(entities = [Category::class], version = 2)
+public abstract class AppDatabase : RoomDatabase() {
+    abstract fun wordDao(): CategoryDao
 
 
     companion object {
         @Volatile
-        private var INSTANCE: WordRoomDatabase? = null
+        private var INSTANCE: AppDatabase? = null
 
-        fun getDatabase(context: Context, scope: CoroutineScope): WordRoomDatabase {
+        fun getDatabase(context: Context, scope: CoroutineScope): AppDatabase {
             return INSTANCE ?: synchronized(this) {
                 // Create database here
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
-                    WordRoomDatabase::class.java,
+                    AppDatabase::class.java,
                     "Word_database"
                 ).addCallback(WordDatabaseCallback(scope))
+                    .fallbackToDestructiveMigration()
                     .build()
                 INSTANCE = instance
                 instance
@@ -47,14 +48,14 @@ public abstract class WordRoomDatabase : RoomDatabase() {
             }
         }
 
-        suspend fun populateDatabase(wordDao: WordDao) {
+        suspend fun populateDatabase(wordDao: CategoryDao) {
             wordDao.deleteAll()
 
-            var word = Word("Медицина", "medicine")
+            var word = Category("Медицина", "medicine")
             wordDao.insert(word)
-            word = Word("Быт", "human")
+            word = Category("Быт", "human")
             wordDao.insert(word)
-            word = Word("Безопасность И Сети", "security")
+            word = Category("Безопасность И Сети", "security")
             wordDao.insert(word)
         }
     }

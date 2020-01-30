@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.esh1n.guidtoarchapp.R
-import com.esh1n.guidtoarchapp.data.Word
+import com.esh1n.guidtoarchapp.data.Category
 import com.esh1n.guidtoarchapp.presentation.CategoriesAdapter
 import com.esh1n.guidtoarchapp.presentation.NewWordActivity
 import com.esh1n.guidtoarchapp.presentation.WordViewModel
@@ -57,7 +57,7 @@ class CategoriesFragment : Fragment(R.layout.fragment_categories) {
 
         if (requestCode == newWordActivityRequestCode && resultCode == Activity.RESULT_OK) {
             data?.let {
-                val word = Word(it.getStringExtra(NewWordActivity.EXTRA_REPLY), "human")
+                val word = Category(it.getStringExtra(NewWordActivity.EXTRA_REPLY), "human")
                 wordViewModel.insert(word)
             }
         } else {
@@ -69,8 +69,8 @@ class CategoriesFragment : Fragment(R.layout.fragment_categories) {
         }
     }
 
-    private fun openArticlesByCategory(word: Word) {
-        val art = getArticlesByCategory(word.word)
+    private fun openArticlesByCategory(word: Category) {
+        val art = getArticlesByCategory(word.name)
         fragmentManager.addFragmentToStack(ArticlesByCategoryFragment.newInstance(art))
     }
 

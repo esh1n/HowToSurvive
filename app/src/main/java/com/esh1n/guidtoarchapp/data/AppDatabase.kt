@@ -10,9 +10,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
-@Database(entities = [Category::class], version = 2)
+@Database(entities = [CategoryEntry::class, ArticleEntry::class], version = 2)
 public abstract class AppDatabase : RoomDatabase() {
     abstract fun wordDao(): CategoryDao
+    abstract fun articlesDao(): ArticleDao
 
 
     companion object {
@@ -43,20 +44,29 @@ public abstract class AppDatabase : RoomDatabase() {
             super.onOpen(db)
             INSTANCE?.let { database ->
                 scope.launch(Dispatchers.IO) {
-                    populateDatabase(database.wordDao())
+                    populateDatabase(database.wordDao(), database.articlesDao())
                 }
             }
         }
 
-        suspend fun populateDatabase(wordDao: CategoryDao) {
+        suspend fun populateDatabase(wordDao: CategoryDao, articleDao: ArticleDao) {
             wordDao.deleteAll()
 
-            var word = Category("Медицина", "medicine")
-            wordDao.insert(word)
-            word = Category("Быт", "human")
-            wordDao.insert(word)
-            word = Category("Безопасность И Сети", "security")
-            wordDao.insert(word)
+            val categories = arrayListOf(
+                CategoryEntry("Медицина", "medicine"),
+                CategoryEntry("Быт", "human"),
+                CategoryEntry("Терроризм", "security")
+            )
+            val articles = arrayListOf(
+                ArticleEntry("Yury pechen is avlive", "Печенка умерла", "Медицина"),
+                ArticleEntry("Yulik orders Devilery", "Вкусный бургер", "Медицина"),
+                ArticleEntry("Yury pechen is avlive", "Печенка умерла", "Быт"),
+                ArticleEntry("Наполеон", "Вкусный бургер", "Быт"),
+                ArticleEntry("live", "В санкт петербурге ", "Терроризм"),
+                ArticleEntry("ПРофессор в питере", "Олег Соколов", "Терроризм")
+            )
+            wordDao.insertAll(categories)
+            articleDao.insertAll(articles)
         }
     }
 }

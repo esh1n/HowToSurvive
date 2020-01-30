@@ -8,17 +8,17 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.esh1n.guidtoarchapp.R
-import com.esh1n.guidtoarchapp.data.Category
+import com.esh1n.guidtoarchapp.data.CategoryEntry
 import com.esh1n.guidtoarchapp.presentation.utils.UiUtils
 
 
 class CategoriesAdapter internal constructor(
     context: Context,
-    private val clickOnItem: (Category) -> (Unit)
+    private val clickOnItem: (CategoryEntry) -> (Unit)
 ) : RecyclerView.Adapter<CategoriesAdapter.WordViewHolder>() {
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
-    private var words = emptyList<Category>() // Cached copy of words
+    private var words = emptyList<CategoryEntry>() // Cached copy of words
 
     inner class WordViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
@@ -29,7 +29,7 @@ class CategoriesAdapter internal constructor(
             itemView.setOnClickListener(this)
         }
 
-        fun populate(word: Category) {
+        fun populate(word: CategoryEntry) {
             titleTextView.text = word.name
             val categoryImageSource = UiUtils.getCategoryImage(itemView.context, word.iconId)
             categoryImageView.setImageResource(categoryImageSource)
@@ -51,7 +51,7 @@ class CategoriesAdapter internal constructor(
         holder.populate(current)
     }
 
-    internal fun setWords(words: List<Category>) {
+    internal fun setWords(words: List<CategoryEntry>) {
         this.words = words
         notifyDataSetChanged()
     }

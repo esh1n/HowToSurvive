@@ -6,7 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import com.esh1n.guidtoarchapp.data.AppDatabase
-import com.esh1n.guidtoarchapp.data.Category
+import com.esh1n.guidtoarchapp.data.CategoryEntry
 import com.esh1n.guidtoarchapp.domain.WordRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 class WordViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository: WordRepository
-    val allWords: LiveData<List<Category>>
+    val allWords: LiveData<List<CategoryEntry>>
 
     init {
         val wordsDao = AppDatabase.getDatabase(application, viewModelScope).wordDao()
@@ -24,7 +24,7 @@ class WordViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun insert(word: Category) = viewModelScope.launch(Dispatchers.IO) {
+    fun insert(word: CategoryEntry) = viewModelScope.launch(Dispatchers.IO) {
         repository.insert(word)
     }
 }

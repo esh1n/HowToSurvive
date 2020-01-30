@@ -10,10 +10,13 @@ import androidx.room.Query
 abstract class CategoryDao {
 
     @Query("SELECT * from category_table ORDER BY name ASC")
-    abstract fun getAllWords(): LiveData<List<Category>>
+    abstract fun getAllWords(): LiveData<List<CategoryEntry>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract suspend fun insert(word: Category)
+    abstract suspend fun insert(word: CategoryEntry)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    abstract suspend fun insertAll(categories: List<CategoryEntry>)
 
     @Query("DELETE FROM category_table")
     abstract suspend fun deleteAll()

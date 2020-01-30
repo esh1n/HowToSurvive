@@ -1,10 +1,17 @@
 package com.esh1n.guidtoarchapp.data
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import androidx.room.*
 
-@Entity(tableName = "article_table")
+
+@Entity(
+    tableName = "article_table",
+    foreignKeys = [ForeignKey(
+        entity = CategoryEntry::class,
+        parentColumns = arrayOf("name"),
+        childColumns = arrayOf("categoryName"), onDelete = ForeignKey.CASCADE
+    )],
+    indices = [Index(value = ["categoryName"])]
+)
 class ArticleEntry(
     @PrimaryKey
     @ColumnInfo(name = "name")

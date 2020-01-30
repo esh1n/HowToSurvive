@@ -10,7 +10,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
-@Database(entities = [CategoryEntry::class, ArticleEntry::class], version = 2)
+@Database(entities = [CategoryEntry::class, ArticleEntry::class], version = 3)
 public abstract class AppDatabase : RoomDatabase() {
     abstract fun wordDao(): CategoryDao
     abstract fun articlesDao(): ArticleDao
@@ -58,12 +58,12 @@ public abstract class AppDatabase : RoomDatabase() {
                 CategoryEntry("Терроризм", "security")
             )
             val articles = arrayListOf(
-                ArticleEntry("Yury pechen is avlive", "Печенка умерла", "Медицина"),
-                ArticleEntry("Yulik orders Devilery", "Вкусный бургер", "Медицина"),
-                ArticleEntry("Yury pechen is avlive", "Печенка умерла", "Быт"),
-                ArticleEntry("Наполеон", "Вкусный бургер", "Быт"),
-                ArticleEntry("live", "В санкт петербурге ", "Терроризм"),
-                ArticleEntry("ПРофессор в питере", "Олег Соколов", "Терроризм")
+                ArticleEntry("Медицина1", "Печенка умерла", "Медицина"),
+                ArticleEntry("Медицина2", "Вкусный бургер", "Медицина"),
+                ArticleEntry("Быт1", "Печенка умерла", "Быт"),
+                ArticleEntry("Быт2", "Вкусный бургер", "Быт"),
+                ArticleEntry("Терроризм1", "В санкт петербурге ", "Терроризм"),
+                ArticleEntry("Терроризм2", "Олег Соколов", "Терроризм")
             )
             wordDao.insertAll(categories)
             articleDao.insertAll(articles)

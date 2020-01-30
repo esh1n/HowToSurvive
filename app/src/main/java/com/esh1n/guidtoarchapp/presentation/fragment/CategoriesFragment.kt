@@ -14,19 +14,19 @@ import com.esh1n.guidtoarchapp.R
 import com.esh1n.guidtoarchapp.data.CategoryEntry
 import com.esh1n.guidtoarchapp.presentation.CategoriesAdapter
 import com.esh1n.guidtoarchapp.presentation.NewWordActivity
-import com.esh1n.guidtoarchapp.presentation.WordViewModel
 import com.esh1n.guidtoarchapp.presentation.adapter.SpaceItemDecoration
 import com.esh1n.guidtoarchapp.presentation.utils.addFragmentToStack
+import com.esh1n.guidtoarchapp.presentation.viewmodel.CategoryViewModel
 
 class CategoriesFragment : Fragment(R.layout.fragment_categories) {
 
-    private lateinit var wordViewModel: WordViewModel
+    private lateinit var categoryViewModel: CategoryViewModel
 
     private var adapter: CategoriesAdapter? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        wordViewModel = ViewModelProviders.of(this).get(WordViewModel::class.java)
+        categoryViewModel = ViewModelProviders.of(this).get(CategoryViewModel::class.java)
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerview)
         adapter = CategoriesAdapter(
@@ -46,7 +46,7 @@ class CategoriesFragment : Fragment(R.layout.fragment_categories) {
     }
 
     private fun observeData() {
-        wordViewModel.allWords.observe(viewLifecycleOwner, Observer { words ->
+        categoryViewModel.allWords.observe(viewLifecycleOwner, Observer { words ->
             // Update the cached copy of the words in the adapter.
             words?.let { adapter?.setWords(it) }
         })
@@ -58,7 +58,7 @@ class CategoriesFragment : Fragment(R.layout.fragment_categories) {
         if (requestCode == newWordActivityRequestCode && resultCode == Activity.RESULT_OK) {
             data?.let {
                 val word = CategoryEntry(it.getStringExtra(NewWordActivity.EXTRA_REPLY), "human")
-                wordViewModel.insert(word)
+                categoryViewModel.insert(word)
             }
         } else {
             Toast.makeText(
@@ -69,18 +69,11 @@ class CategoriesFragment : Fragment(R.layout.fragment_categories) {
         }
     }
 
-    private fun openArticlesByCategory(word: CategoryEntry) {
-        val art = getArticlesByCategory(word.name)
-        fragmentManager.addFragmentToStack(ArticlesByCategoryFragment.newInstance(art))
+    private fun openArticlesByCategory(category: CategoryEntry) {
+        val categoryId = category.name
+        fragmentManager.addFragmentToStack(ArticlesByCategoryFragment.newInstance(categoryId))
     }
 
-    private fun getArticlesByCategory(category: String): ArrayList<String> {
-        return when (category) {
-            "Медицина" -> arrayListOf("Перелом", "Ожег", "Бинт")
-            "Быт" -> arrayListOf("Быт1 ", "Быт2", "Быт3")
-            else -> arrayListOf("logovo", "elfov")
-        }
-    }
 
     companion object {
         const val newWordActivityRequestCode = 1

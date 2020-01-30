@@ -1,5 +1,6 @@
 package com.esh1n.guidtoarchapp.data
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -7,8 +8,8 @@ import androidx.room.Query
 
 @Dao
 abstract class ArticleDao {
-//    @Query("SELECT * from category_table ORDER BY name ASC")
-//    abstract fun getArticlesByCategory(category: String): LiveData<List<CategoryEntry>>
+    @Query("SELECT * from article_table WHERE categoryName =:categoryName ORDER BY name ASC")
+    abstract fun getArticlesByCategory(categoryName: String): LiveData<List<ArticleEntry>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract suspend fun insertAll(articleEntry: List<ArticleEntry>)

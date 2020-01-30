@@ -1,4 +1,4 @@
-package com.esh1n.guidtoarchapp.presentation
+package com.esh1n.guidtoarchapp.presentation.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -7,18 +7,19 @@ import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import com.esh1n.guidtoarchapp.data.AppDatabase
 import com.esh1n.guidtoarchapp.data.CategoryEntry
-import com.esh1n.guidtoarchapp.domain.WordRepository
+import com.esh1n.guidtoarchapp.domain.CommonRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class WordViewModel(application: Application) : AndroidViewModel(application) {
+class CategoryViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val repository: WordRepository
+    private val repository: CommonRepository
     val allWords: LiveData<List<CategoryEntry>>
 
     init {
         val wordsDao = AppDatabase.getDatabase(application, viewModelScope).wordDao()
-        repository = WordRepository(wordsDao)
+        val artcileDao = AppDatabase.getDatabase(application, viewModelScope).articlesDao()
+        repository = CommonRepository(wordsDao, artcileDao)
         allWords = liveData(){
             emitSource(repository.allWords)
         }

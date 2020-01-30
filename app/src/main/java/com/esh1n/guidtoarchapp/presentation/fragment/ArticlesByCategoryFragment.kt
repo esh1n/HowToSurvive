@@ -53,7 +53,7 @@ class ArticlesByCategoryFragment : Fragment(R.layout.fragment_articles) {
     }
 
     private fun openArticleById(id: String) {
-        fragmentManager.addFragmentToStack(ArticleFragment.newInstance(id, "Sofya"))
+        fragmentManager.addFragmentToStack(ArticleFragment.newInstance(id))
     }
 
     private fun getCategoryId(): String {

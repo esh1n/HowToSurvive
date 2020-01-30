@@ -58,12 +58,24 @@ public abstract class AppDatabase : RoomDatabase() {
                 CategoryEntry("Терроризм", "security")
             )
             val articles = arrayListOf(
-                ArticleEntry("Медицина1", "Печенка умерла", "Медицина"),
-                ArticleEntry("Медицина2", "Вкусный бургер", "Медицина"),
-                ArticleEntry("Быт1", "Печенка умерла", "Быт"),
-                ArticleEntry("Быт2", "Вкусный бургер", "Быт"),
-                ArticleEntry("Терроризм1", "В санкт петербурге ", "Терроризм"),
-                ArticleEntry("Терроризм2", "Олег Соколов", "Терроризм")
+                ArticleEntry(
+                    "Медицина1",
+                    "{text:Медицина11}{image:ic_phone}{text:Медицина12}",
+                    "Медицина"
+                ),
+                ArticleEntry(
+                    "Медицина2",
+                    "{text:Медицина21}{image:ic_compass}{text:Медицина}",
+                    "Медицина"
+                ),
+                ArticleEntry("Быт1", "{text:Быт11}{image:ic_compass}{text:Быт12}", "Быт"),
+                ArticleEntry("Быт2", "{text:Быт21}{image:ic_phone}{text:Быт22}", "Быт"),
+                ArticleEntry("Терроризм1", "{text:Text1}{image:ic_phone}{text:Text1}", "Терроризм"),
+                ArticleEntry(
+                    "Терроризм2",
+                    "{text:Text1}{image:ic_compass}{text:Text1}",
+                    "Терроризм"
+                )
             )
             wordDao.insertAll(categories)
             articleDao.insertAll(articles)

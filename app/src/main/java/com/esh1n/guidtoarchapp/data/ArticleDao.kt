@@ -11,6 +11,9 @@ abstract class ArticleDao {
     @Query("SELECT * from article_table WHERE categoryName =:categoryName ORDER BY name ASC")
     abstract fun getArticlesByCategory(categoryName: String): LiveData<List<ArticleEntry>>
 
+    @Query("SELECT * from article_table WHERE name=:id")
+    abstract fun getArticleById(id: String): LiveData<ArticleEntry>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract suspend fun insertAll(articleEntry: List<ArticleEntry>)
 

@@ -14,6 +14,10 @@ class CommonRepository(private val wordDao: CategoryDao, private val artcilesDao
     fun articlesByCategories(categoryName: String): LiveData<List<ArticleEntry>> =
         artcilesDao.getArticlesByCategory(categoryName)
 
+    fun getArticleById(id: String): LiveData<ArticleEntry> {
+        return artcilesDao.getArticleById(id)
+    }
+
     @WorkerThread
     suspend fun insert(word: CategoryEntry) {
         wordDao.insert(word)

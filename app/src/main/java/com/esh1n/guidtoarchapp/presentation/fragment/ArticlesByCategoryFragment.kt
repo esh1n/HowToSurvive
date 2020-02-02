@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.esh1n.guidtoarchapp.R
+import com.esh1n.guidtoarchapp.presentation.MainActivity
 import com.esh1n.guidtoarchapp.presentation.adapter.ArticlesAdapter
 import com.esh1n.guidtoarchapp.presentation.utils.addFragmentToStack
 import com.esh1n.guidtoarchapp.presentation.viewmodel.ArticlesByCategoryViewModel
@@ -32,6 +33,8 @@ class ArticlesByCategoryFragment : Fragment(R.layout.fragment_articles) {
         recyclerView.addItemDecoration(dividerItemDecoration)
         recyclerView.layoutManager = LinearLayoutManager(requireActivity())
         //adapter.setArticles(getCategoryId())
+        val title = getString(R.string.text_artciles_by_title, getCategoryId())
+        (requireActivity() as MainActivity).setABTitle(title)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

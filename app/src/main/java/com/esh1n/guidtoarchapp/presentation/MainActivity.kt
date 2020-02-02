@@ -25,6 +25,10 @@ class MainActivity : AppCompatActivity() {
         //addSingleFragmentToContainer(CategoriesFragment.newInstance())
     }
 
+    public fun setABTitle(title: CharSequence) {
+        supportActionBar?.title = title
+    }
+
     private fun getSelectedFragmentMenuId(savedInstance: Bundle?): MenuItem {
         val isSavedDataExist = savedInstance != null
         return if (isSavedDataExist) {

@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.esh1n.guidtoarchapp.R
 import com.esh1n.guidtoarchapp.data.CategoryEntry
 import com.esh1n.guidtoarchapp.presentation.CategoriesAdapter
+import com.esh1n.guidtoarchapp.presentation.MainActivity
 import com.esh1n.guidtoarchapp.presentation.NewWordActivity
 import com.esh1n.guidtoarchapp.presentation.adapter.SpaceItemDecoration
 import com.esh1n.guidtoarchapp.presentation.utils.addFragmentToStack
@@ -43,6 +44,11 @@ class CategoriesFragment : Fragment(R.layout.fragment_categories) {
 //            startActivityForResult(intent, newWordActivityRequestCode)
 //        }
         observeData()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (requireActivity() as MainActivity).setABTitle(getString(R.string.text_categories))
     }
 
     private fun observeData() {

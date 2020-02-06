@@ -6,4 +6,5 @@
     <dimen name="f36">36sp</dimen>
     <dimen name="f24">24sp</dimen>
     <dimen name="f16">16sp</dimen>
+    <dimen name="f18">18sp</dimen>
 </resources>

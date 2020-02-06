@@ -8,6 +8,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.esh1n.guidtoarchapp.R
+import com.esh1n.guidtoarchapp.presentation.adapter.ArticleContentAdapter.Companion.ITEM_BOLD_TEXT
+import com.esh1n.guidtoarchapp.presentation.adapter.ArticleContentAdapter.Companion.ITEM_IMAGE
+import com.esh1n.guidtoarchapp.presentation.adapter.ArticleContentAdapter.Companion.ITEM_TEXT
+import com.esh1n.guidtoarchapp.presentation.adapter.ArticleContentAdapter.Companion.ITEM_TITLE
 import com.esh1n.guidtoarchapp.presentation.utils.UiUtils
 
 
@@ -32,6 +36,20 @@ class ArticleContentAdapter constructor(context: Context) :
         private val titleTextView: TextView = itemView.findViewById(R.id.tv_text)
 
         fun populate(article: TextModel) {
+            //1.найти строку в []
+            //2.найти первое и последнее слово
+            //3. индекс начала и конца строки
+            //4. по индексам выделить жирным
+            titleTextView.text = article.value
+        }
+
+    }
+
+    inner class TextBoldViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+        private val titleTextView: TextView = itemView.findViewById(R.id.tv_text)
+
+        fun populate(article: TextBoldModel) {
             titleTextView.text = article.value
         }
 
@@ -58,6 +76,10 @@ class ArticleContentAdapter constructor(context: Context) :
                 val itemView = inflater.inflate(R.layout.item_article_text, parent, false)
                 TextViewHolder(itemView)
             }
+            ITEM_BOLD_TEXT -> {
+                val itemView = inflater.inflate(R.layout.item_bold_text, parent, false)
+                TextBoldViewHolder(itemView)
+            }
             ITEM_IMAGE -> {
                 val itemView = inflater.inflate(R.layout.item_article_image, parent, false)
                 ImageViewHolder(itemView)
@@ -78,6 +100,10 @@ class ArticleContentAdapter constructor(context: Context) :
             }
             is TextViewHolder -> {
                 val currentWeather = getItem(position) as TextModel
+                holder.populate(currentWeather)
+            }
+            is TextBoldViewHolder -> {
+                val currentWeather = getItem(position) as TextBoldModel
                 holder.populate(currentWeather)
             }
             else -> {
@@ -101,17 +127,8 @@ class ArticleContentAdapter constructor(context: Context) :
     }
 
     override fun getItemViewType(position: Int): Int {
-        return when (articleModels[position]) {
-            is TitleModel -> {
-                ITEM_TITLE
-            }
-            is TextModel -> {
-                ITEM_TEXT
-            }
-            else -> {
-                ITEM_IMAGE
-            }
-        }
+        return articleModels[position].index
+
     }
 
     override fun getItemCount() = articleModels.size
@@ -119,11 +136,13 @@ class ArticleContentAdapter constructor(context: Context) :
     companion object {
         const val ITEM_TITLE = 1
         const val ITEM_TEXT = 2
-        const val ITEM_IMAGE = 3
+        const val ITEM_BOLD_TEXT = 3
+        const val ITEM_IMAGE = 4
     }
 }
 
-sealed class BaseModel(val value: String)
-class TitleModel(value: String) : BaseModel(value)
-class TextModel(value: String) : BaseModel(value)
-class ImageModel(imagePath: String) : BaseModel(imagePath)
+sealed class BaseModel(val index: Int, val value: String)
+class TitleModel(value: String) : BaseModel(ITEM_TITLE, value)
+class TextModel(value: String) : BaseModel(ITEM_TEXT, value)
+class TextBoldModel(value: String) : BaseModel(ITEM_BOLD_TEXT, value)
+class ImageModel(imagePath: String) : BaseModel(ITEM_IMAGE, imagePath)

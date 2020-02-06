@@ -6,10 +6,7 @@ import com.esh1n.guidtoarchapp.data.AppDatabase
 import com.esh1n.guidtoarchapp.data.ArticleEntry
 import com.esh1n.guidtoarchapp.data.CategoryEntry
 import com.esh1n.guidtoarchapp.domain.CommonRepository
-import com.esh1n.guidtoarchapp.presentation.adapter.BaseModel
-import com.esh1n.guidtoarchapp.presentation.adapter.ImageModel
-import com.esh1n.guidtoarchapp.presentation.adapter.TextModel
-import com.esh1n.guidtoarchapp.presentation.adapter.TitleModel
+import com.esh1n.guidtoarchapp.presentation.adapter.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.regex.Matcher
@@ -53,6 +50,7 @@ class ArticleViewModel(application: Application) : AndroidViewModel(application)
         val type = value.substringBefore(":")
         val content = value.substringAfter(":")
         when (type) {
+            "textBold" -> return TextBoldModel(content)
             "text" -> return TextModel(content)
             "image" -> return ImageModel(content)
         }

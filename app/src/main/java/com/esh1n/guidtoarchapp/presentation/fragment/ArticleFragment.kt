@@ -5,7 +5,6 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.esh1n.guidtoarchapp.R
@@ -22,10 +21,10 @@ class ArticleFragment : Fragment(R.layout.fragment_acticle) {
         super.onViewCreated(view, savedInstanceState)
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerview)
         adapter = ArticleContentAdapter(requireActivity())
-        val dividerItemDecoration =
-            DividerItemDecoration(requireActivity(), DividerItemDecoration.VERTICAL)
+//        val dividerItemDecoration =
+//            DividerItemDecoration(requireActivity(), DividerItemDecoration.VERTICAL)
         recyclerView.adapter = adapter
-        recyclerView.addItemDecoration(dividerItemDecoration)
+//        recyclerView.addItemDecoration(dividerItemDecoration)
         recyclerView.layoutManager = LinearLayoutManager(requireActivity())
 
     }

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimary">#003330</color>
     <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorAccent">#800600</color>
 
     <color name="buttonLabel">#d3d3d3</color>
 
     <color name="bottom_menu_inactive">#8a8a8f</color>
     <color name="gray_bottom_menu">#777777</color>
-    <color name="bottom_menu_active">#d337e1</color>
+    <color name="bottom_menu_active">#fe9b00</color>
 
     <color name="gray_border_bottom_navigation">#4c000000</color>
     <color name="light_gray">#F1F1F1</color>

@@ -22,7 +22,29 @@ class MainActivity : AppCompatActivity() {
         setupBottomNavigation()
         val restoredMenu = getSelectedFragmentMenuId(savedInstanceState)
         bottom_navigation.selectedItemId = restoredMenu.itemId
-        //addSingleFragmentToContainer(CategoriesFragment.newInstance())
+        initFragmentTransactionsListener()
+    }
+
+    private fun initFragmentTransactionsListener() {
+        supportFragmentManager.addOnBackStackChangedListener { this.processFragmentsSwitching() }
+    }
+
+    private fun processFragmentsSwitching() {
+
+        supportFragmentManager.let {
+            val isInRootFragment = it.backStackEntryCount == 1
+            //TODO move it to main activity
+            //requireActivity().actionBar?.setDisplayHomeAsUpEnabled(!isInRootFragment)
+            if (isInRootFragment) {
+                updateTitleForRootFragment()
+            }
+        }
+
+    }
+
+    private fun updateTitleForRootFragment() {
+        val titleForRootFragment = getTitleByTab(getTabByMenu(bottom_navigation.selectedItemId))
+        setABTitle(titleForRootFragment)
     }
 
     public fun setABTitle(title: CharSequence) {

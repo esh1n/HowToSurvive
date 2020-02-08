@@ -41,6 +41,7 @@ class ArticleContentAdapter constructor(context: Context) :
             //3. индекс начала и конца строки
             //4. по индексам выделить жирным
             titleTextView.text = article.value
+            val existEven = listOf(1, 2, 3).any { item -> item % 2 == 0 }
         }
 
     }

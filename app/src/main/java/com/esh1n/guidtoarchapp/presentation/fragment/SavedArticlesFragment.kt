@@ -1,11 +1,12 @@
 package com.esh1n.guidtoarchapp.presentation.fragment
 
+
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -13,14 +14,13 @@ import com.esh1n.guidtoarchapp.R
 import com.esh1n.guidtoarchapp.presentation.MainActivity
 import com.esh1n.guidtoarchapp.presentation.adapter.ArticlesAdapter
 import com.esh1n.guidtoarchapp.presentation.utils.addFragmentToStack
-import com.esh1n.guidtoarchapp.presentation.viewmodel.ArticlesByCategoryViewModel
+import com.esh1n.guidtoarchapp.presentation.viewmodel.SavedArticlesVM
 
-class ArticlesByCategoryFragment : Fragment(R.layout.fragment_articles) {
-
+class SavedArticlesFragment : Fragment(R.layout.fragment_articles) {
 
     private lateinit var adapter: ArticlesAdapter
 
-    private lateinit var viewModel: ArticlesByCategoryViewModel
+    private lateinit var viewModel: SavedArticlesVM
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -33,19 +33,19 @@ class ArticlesByCategoryFragment : Fragment(R.layout.fragment_articles) {
         recyclerView.addItemDecoration(dividerItemDecoration)
         recyclerView.layoutManager = LinearLayoutManager(requireActivity())
         //adapter.setArticles(getCategoryId())
-        val title = getString(R.string.text_artciles_by_title, getCategoryId())
+        val title = getString(R.string.favorite_articles)
         (requireActivity() as MainActivity).setABTitle(title)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         Log.d("Lifecycle", "onActivityCreated")
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(ArticlesByCategoryViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(SavedArticlesVM::class.java)
         observeData()
     }
 
     private fun observeData() {
-        viewModel.getArticlesByCategory(getCategoryId())
+        viewModel.getSavedArticles()
             .observe(viewLifecycleOwner, Observer { articles ->
                 // Update the cached copy of the words in the adapter.
                 articles?.let {
@@ -59,20 +59,11 @@ class ArticlesByCategoryFragment : Fragment(R.layout.fragment_articles) {
         parentFragmentManager.addFragmentToStack(ArticleFragment.newInstance(id))
     }
 
-    private fun getCategoryId(): String {
-        return arguments?.getString(ARG) ?: ""
-    }
 
     companion object {
-        const val ARG = "catId"
 
-        fun newInstance(catId: String): ArticlesByCategoryFragment {
-            return ArticlesByCategoryFragment()
-                .apply {
-                    arguments = Bundle().apply {
-                        putString(ARG, catId)
-                    }
-                }
+        fun newInstance(): SavedArticlesFragment {
+            return SavedArticlesFragment()
         }
     }
 

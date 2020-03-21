@@ -10,7 +10,7 @@ enum class MainFragmentTab(val value: Int) {
         get() {
             return when (this) {
                 MAIN_SCREEN -> CategoriesFragment.newInstance()
-                SAVED_ARTICLES -> TabFragment.newInstance(this.value)
+                SAVED_ARTICLES -> SavedArticlesFragment.newInstance()
                 PHONES -> TabFragment.newInstance(this.value)
             }
         }

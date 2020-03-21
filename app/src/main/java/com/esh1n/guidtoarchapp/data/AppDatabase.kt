@@ -10,7 +10,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
-@Database(entities = [CategoryEntry::class, ArticleEntry::class], version = 3)
+@Database(entities = [CategoryEntry::class, ArticleEntry::class], version = 4)
 public abstract class AppDatabase : RoomDatabase() {
     abstract fun wordDao(): CategoryDao
     abstract fun articlesDao(): ArticleDao
@@ -69,12 +69,15 @@ public abstract class AppDatabase : RoomDatabase() {
                             "{textBold:6. Прикрой область ожога. Используй прохладную влажную повязку или чистую ткань.}" +
                             "{text:7. Подними рану выше уровня сердца, если это возможно.}"
                     ,
-                    "Медицина"
+                    "Медицина",
+                    true
                 ),
                 ArticleEntry(
                     "Медицина2",
                     "{text:Медицина21}{image:ic_compass}{text:Медицина}",
                     "Медицина"
+                    ,
+                    true
                 ),
                 ArticleEntry(
                     "Пожар",
@@ -87,13 +90,20 @@ public abstract class AppDatabase : RoomDatabase() {
                             "{text:6. Встретить пожарных, показать машине удобный путь к очагу возгорания}" +
                             "{text:Продумывая, как действовать при пожаре в случае его самостоятельного тушения, не стоит преуменьшать угрозу даже незначительного возгорания. При подходящих условиях огонь может распространиться очень быстро, а густой дым может проникнуть и через мокрую ткань, лишив сознания за несколько вдохов.}",
                     "Быт"
+                    ,
+                    true
                 ),
-                ArticleEntry("Быт2", "{text:Быт21}{image:ic_phone}{text:Быт22}", "Быт"),
-                ArticleEntry("Терроризм1", "{text:Text1}{image:ic_phone}{text:Text1}", "Терроризм"),
+                ArticleEntry("Быт2", "{text:Быт21}{image:ic_phone}{text:Быт22}", "Быт", false),
+                ArticleEntry(
+                    "Терроризм1",
+                    "{text:Text1}{image:ic_phone}{text:Text1}",
+                    "Терроризм",
+                    false
+                ),
                 ArticleEntry(
                     "Терроризм2",
                     "{text:Text1}{image:ic_compass}{text:Text1}",
-                    "Терроризм"
+                    "Терроризм", false
                 )
             )
             wordDao.insertAll(categories)

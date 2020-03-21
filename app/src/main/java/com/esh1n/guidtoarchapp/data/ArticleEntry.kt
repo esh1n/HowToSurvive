@@ -19,6 +19,9 @@ class ArticleEntry(
     @ColumnInfo(name = "icon_id")
     val content: String,
     @ColumnInfo(name = "categoryName")
-    val categoryName: String
+    val categoryName: String,
+    @ColumnInfo(name = "isSaved")
+    val isSaved: Boolean
+
 )
 

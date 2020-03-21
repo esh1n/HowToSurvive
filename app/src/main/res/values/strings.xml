@@ -9,6 +9,7 @@
     <string name="menu_saved_phones">Телефоны</string>
     <string name="child_fragment">Child Fragment</string>
     <string name="text_categories">Категории</string>
+    <string name="favorite_articles">Сохраненные Статьи</string>
     <string name="add_child_screen">Add child fragment</string>
     <string name="text_artciles_by_title">%s</string>
 

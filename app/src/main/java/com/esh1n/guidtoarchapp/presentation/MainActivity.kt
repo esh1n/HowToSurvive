@@ -23,11 +23,13 @@ class MainActivity : AppCompatActivity() {
         val restoredMenu = getSelectedFragmentMenuId(savedInstanceState)
         bottom_navigation.selectedItemId = restoredMenu.itemId
         initFragmentTransactionsListener()
+        //NewWordActivity.startDialer(this)
     }
 
     private fun initFragmentTransactionsListener() {
         supportFragmentManager.addOnBackStackChangedListener { this.processFragmentsSwitching() }
     }
+
 
     private fun processFragmentsSwitching() {
 

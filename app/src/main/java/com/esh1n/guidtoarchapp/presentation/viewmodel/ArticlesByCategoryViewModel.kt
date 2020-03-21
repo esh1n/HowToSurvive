@@ -8,24 +8,27 @@ import androidx.lifecycle.viewModelScope
 import com.esh1n.guidtoarchapp.data.AppDatabase
 import com.esh1n.guidtoarchapp.data.ArticleEntry
 import com.esh1n.guidtoarchapp.data.CategoryEntry
-import com.esh1n.guidtoarchapp.domain.CommonRepository
+import com.esh1n.guidtoarchapp.domain.ArticlesRepository
+import com.esh1n.guidtoarchapp.domain.CategoriesRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
 class ArticlesByCategoryViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val repository: CommonRepository
+    private val repository: CategoriesRepository
+    private val articlesRepository: ArticlesRepository
 
     init {
         val wordsDao = AppDatabase.getDatabase(application, viewModelScope).wordDao()
         val artcilesDao = AppDatabase.getDatabase(application, viewModelScope).articlesDao()
-        repository = CommonRepository(wordsDao, artcilesDao)
+        repository = CategoriesRepository(wordsDao)
+        articlesRepository = ArticlesRepository(artcilesDao)
     }
 
     fun getArticlesByCategory(catName: String): LiveData<List<ArticleEntry>> {
         return liveData() {
-            emitSource(repository.articlesByCategories(catName))
+            emitSource(articlesRepository.articlesByCategories(catName))
         }
     }
 

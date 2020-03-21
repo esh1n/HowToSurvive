@@ -14,9 +14,15 @@ abstract class ArticleDao {
     @Query("SELECT * from article_table WHERE name=:id")
     abstract fun getArticleById(id: String): LiveData<ArticleEntry>
 
+    @Query("SELECT * from article_table WHERE isSaved = 1")
+    abstract fun getSavedArticles(): LiveData<List<ArticleEntry>>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract suspend fun insertAll(articleEntry: List<ArticleEntry>)
 
     @Query("DELETE FROM article_table")
     abstract suspend fun deleteAll()
+
+    @Query("UPDATE article_table SET isSaved = :updateValue WHERE name=:id")
+    abstract suspend fun markAsSaved(id: String, updateValue: Int)
 }

@@ -5,7 +5,8 @@ import androidx.lifecycle.*
 import com.esh1n.guidtoarchapp.data.AppDatabase
 import com.esh1n.guidtoarchapp.data.ArticleEntry
 import com.esh1n.guidtoarchapp.data.CategoryEntry
-import com.esh1n.guidtoarchapp.domain.CommonRepository
+import com.esh1n.guidtoarchapp.domain.ArticlesRepository
+import com.esh1n.guidtoarchapp.domain.CategoriesRepository
 import com.esh1n.guidtoarchapp.presentation.adapter.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -15,17 +16,19 @@ import java.util.regex.Pattern
 
 class ArticleViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val repository: CommonRepository
+    private val categoriesRepository: CategoriesRepository
+    private val articlesRepository: ArticlesRepository
 
     init {
         val wordsDao = AppDatabase.getDatabase(application, viewModelScope).wordDao()
         val artcilesDao = AppDatabase.getDatabase(application, viewModelScope).articlesDao()
-        repository = CommonRepository(wordsDao, artcilesDao)
+        categoriesRepository = CategoriesRepository(wordsDao)
+        articlesRepository = ArticlesRepository(artcilesDao)
     }
 
     private fun getArticlesById(id: String): LiveData<ArticleEntry> {
         return liveData() {
-            emitSource(repository.getArticleById(id))
+            emitSource(articlesRepository.getArticleById(id))
         }
     }
 
@@ -58,6 +61,6 @@ class ArticleViewModel(application: Application) : AndroidViewModel(application)
     }
 
     fun insert(word: CategoryEntry) = viewModelScope.launch(Dispatchers.IO) {
-        repository.insert(word)
+        categoriesRepository.insert(word)
     }
 }

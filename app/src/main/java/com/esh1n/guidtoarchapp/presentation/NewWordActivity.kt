@@ -1,13 +1,16 @@
 package com.esh1n.guidtoarchapp.presentation
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.text.TextUtils
 import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import com.esh1n.guidtoarchapp.R
+
 
 class NewWordActivity : AppCompatActivity() {
 
@@ -32,7 +35,19 @@ class NewWordActivity : AppCompatActivity() {
         }
     }
 
+
     companion object {
         const val EXTRA_REPLY = "com.example.android.wordlistsql.REPLY"
+
+        fun startNewExplicit(context: Context) {
+            val intent = Intent(context, NewWordActivity::class.java)
+            context.startActivity(intent)
+        }
+
+        fun startDialer(context: Context) {
+            val intent = Intent(Intent.ACTION_DIAL)
+            intent.data = Uri.parse("tel:0123456789")
+            context.startActivity(intent)
+        }
     }
 }

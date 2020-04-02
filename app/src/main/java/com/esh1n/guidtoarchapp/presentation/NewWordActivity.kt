@@ -3,7 +3,6 @@ package com.esh1n.guidtoarchapp.presentation
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.text.TextUtils
 import android.widget.Button
@@ -44,10 +43,6 @@ class NewWordActivity : AppCompatActivity() {
             context.startActivity(intent)
         }
 
-        fun startDialer(context: Context) {
-            val intent = Intent(Intent.ACTION_DIAL)
-            intent.data = Uri.parse("tel:0123456789")
-            context.startActivity(intent)
-        }
+
     }
 }

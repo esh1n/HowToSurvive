@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Switch
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.esh1n.guidtoarchapp.R
@@ -15,7 +16,10 @@ import com.esh1n.guidtoarchapp.presentation.adapter.ArticleContentAdapter.Compan
 import com.esh1n.guidtoarchapp.presentation.utils.UiUtils
 
 
-class ArticleContentAdapter constructor(context: Context) :
+class ArticleContentAdapter constructor(
+    context: Context,
+    private val saveListener: (Boolean) -> Unit
+) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
@@ -24,9 +28,17 @@ class ArticleContentAdapter constructor(context: Context) :
     inner class TitleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         private val titleTextView: TextView = itemView.findViewById(R.id.tv_title)
+        private val saveArticleSwitch: Switch = itemView.findViewById(R.id.switch_save_article)
 
         fun populate(article: TitleModel) {
             titleTextView.text = article.value
+            val switchResource =
+                if (article.isSaved) R.string.text_remove_from_saved else R.string.text_save_article
+            saveArticleSwitch.text = itemView.context.getString(switchResource)
+            saveArticleSwitch.isChecked = article.isSaved
+            saveArticleSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
+                saveListener(isChecked)
+            }
         }
 
     }
@@ -143,7 +155,7 @@ class ArticleContentAdapter constructor(context: Context) :
 }
 
 sealed class BaseModel(val index: Int, val value: String)
-class TitleModel(value: String) : BaseModel(ITEM_TITLE, value)
+class TitleModel(value: String, val isSaved: Boolean) : BaseModel(ITEM_TITLE, value)
 class TextModel(value: String) : BaseModel(ITEM_TEXT, value)
 class TextBoldModel(value: String) : BaseModel(ITEM_BOLD_TEXT, value)
 class ImageModel(imagePath: String) : BaseModel(ITEM_IMAGE, imagePath)

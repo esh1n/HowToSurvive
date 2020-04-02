@@ -4,7 +4,6 @@ import android.app.Application
 import androidx.lifecycle.*
 import com.esh1n.guidtoarchapp.data.AppDatabase
 import com.esh1n.guidtoarchapp.data.ArticleEntry
-import com.esh1n.guidtoarchapp.data.CategoryEntry
 import com.esh1n.guidtoarchapp.domain.ArticlesRepository
 import com.esh1n.guidtoarchapp.domain.CategoriesRepository
 import com.esh1n.guidtoarchapp.presentation.adapter.*
@@ -18,6 +17,7 @@ class ArticleViewModel(application: Application) : AndroidViewModel(application)
 
     private val categoriesRepository: CategoriesRepository
     private val articlesRepository: ArticlesRepository
+    private lateinit var articleId: String
 
     init {
         val wordsDao = AppDatabase.getDatabase(application, viewModelScope).wordDao()
@@ -27,6 +27,7 @@ class ArticleViewModel(application: Application) : AndroidViewModel(application)
     }
 
     private fun getArticlesById(id: String): LiveData<ArticleEntry> {
+        articleId = id
         return liveData() {
             emitSource(articlesRepository.getArticleById(id))
         }
@@ -37,7 +38,7 @@ class ArticleViewModel(application: Application) : AndroidViewModel(application)
     }
 
     private fun mapArticleToBaseModel(articleEntry: ArticleEntry): List<BaseModel> {
-        val items = arrayListOf<BaseModel>(TitleModel(articleEntry.name))
+        val items = arrayListOf<BaseModel>(TitleModel(articleEntry.name, articleEntry.isSaved))
         val m: Matcher = Pattern.compile("\\{([^}]+)\\}").matcher(articleEntry.content)
         while (m.find()) {
             val item = mapContentToBaseModel(m.group(1))
@@ -60,7 +61,8 @@ class ArticleViewModel(application: Application) : AndroidViewModel(application)
         return null
     }
 
-    fun insert(word: CategoryEntry) = viewModelScope.launch(Dispatchers.IO) {
-        categoriesRepository.insert(word)
+
+    fun toogleSavedState(checked: Boolean) = viewModelScope.launch(Dispatchers.IO) {
+        articlesRepository.markAsSaved(articleId, checked)
     }
 }

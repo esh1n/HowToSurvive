@@ -20,13 +20,17 @@ class ArticleFragment : Fragment(R.layout.fragment_acticle) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerview)
-        adapter = ArticleContentAdapter(requireActivity())
+        adapter = ArticleContentAdapter(requireActivity(), this::saveListener)
 //        val dividerItemDecoration =
 //            DividerItemDecoration(requireActivity(), DividerItemDecoration.VERTICAL)
         recyclerView.adapter = adapter
 //        recyclerView.addItemDecoration(dividerItemDecoration)
         recyclerView.layoutManager = LinearLayoutManager(requireActivity())
 
+    }
+
+    private fun saveListener(isChecked: Boolean) {
+        viewModel.toogleSavedState(isChecked)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

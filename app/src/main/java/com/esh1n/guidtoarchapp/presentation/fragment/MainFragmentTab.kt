@@ -11,7 +11,7 @@ enum class MainFragmentTab(val value: Int) {
             return when (this) {
                 MAIN_SCREEN -> CategoriesFragment.newInstance()
                 SAVED_ARTICLES -> SavedArticlesFragment.newInstance()
-                PHONES -> TabFragment.newInstance(this.value)
+                PHONES -> PhonesFragment.newInstance()
             }
         }
 

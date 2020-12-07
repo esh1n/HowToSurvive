@@ -34,7 +34,12 @@ class PhonesFragment : Fragment(R.layout.fragment_acticle) {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        val phones = arrayListOf(PhoneEntry("Пожарная", "01"), PhoneEntry("МВД", "02"))
+        val phones = arrayListOf(PhoneEntry("единый телефон экстренных служб", "112"),
+            PhoneEntry("пожарная служба и спасатели", "101"),
+            PhoneEntry("полиция", "102"),
+            PhoneEntry("скорая медицинская помощь", "103"),
+            PhoneEntry("служба газа", "104"),
+            PhoneEntry("«телефон доверия»", "+7 (495) 637-22-22"))
         adapter?.setPhones(phones)
     }
 

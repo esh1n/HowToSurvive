@@ -23,6 +23,8 @@
             android:src="@drawable/ic_category_human" />
 
         <TextView
+            android:textAppearance="?attr/textAppearanceHeadline1"
+            android:textColor="@color/material_on_background_emphasis_high_type"
             android:id="@+id/tv_title"
             style="@style/word_title"
             android:layout_width="match_parent"

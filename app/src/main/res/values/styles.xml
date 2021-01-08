@@ -1,18 +1,9 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-    </style>
-    <style name="AppTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="word_title">
         <item name="android:textSize">24sp</item>
@@ -26,6 +17,114 @@
     <style name="headline_title">
         <item name="android:textSize">36sp</item>
         <item name="android:textStyle">bold</item>
+    </style>
+
+    <!--Components-->
+
+    <!--Bottom Sheets-->
+    <style name="ThemeOverlay.MyTheme.BottomSheetDialog" parent="ThemeOverlay.MaterialComponents.Dialog">
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowAnimationStyle">@style/Animation.MyTheme.BottomSheet.Modal</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="bottomSheetStyle">@style/Widget.MyTheme.BottomSheet.Modal</item>
+        <item name="android:navigationBarColor">?attr/colorSurface</item>
+        <item name="android:navigationBarDividerColor" tools:ignore="NewApi">
+            @android:color/transparent
+        </item>
+    </style>
+
+    <style name="Widget.MyTheme.BottomSheet.Modal" parent="Widget.MaterialComponents.BottomSheet.Modal">
+        <item name="shapeAppearanceOverlay">?attr/shapeAppearanceLargeComponent</item>
+    </style>
+
+    <!--BottomSheet-->
+    <style name="Widget.MyTheme.BottomSheet" parent="Widget.MaterialComponents.BottomSheet">
+        <item name="android:elevation">@dimen/bottom_sheet_elevation</item>
+        <!--item name="behavior_draggable">false</item-->
+        <!--item name="behavior_hideable">false</item-->
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+    </style>
+
+
+    <!--Navigation Drawer-->
+    <style name="Widget.MyTheme.NavigationView" parent="Widget.MaterialComponents.NavigationView">
+        <item name="itemTextAppearance">?attr/textAppearanceBody2</item>
+    </style>
+
+    <!--Buttons-->
+    <style name="Widget.MyTheme.Button" parent="Widget.MaterialComponents.Button">
+        <item name="shapeAppearance">@style/ShapeAppearance.MyTheme.Button</item>
+        <item name="android:textAppearance">@style/TextAppearance.MyTheme.Button</item>
+    </style>
+
+    <style name="Widget.MyTheme.Button.TextButton" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="shapeAppearance">@style/ShapeAppearance.MyTheme.Button</item>
+        <item name="android:textAppearance">@style/TextAppearance.MyTheme.Button.TextButton</item>
+    </style>
+
+    <style name="Widget.MyTheme.Button.TextButton.Small" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="shapeAppearance">@style/ShapeAppearance.MyTheme.Button</item>
+        <item name="android:textAppearance">@style/TextAppearance.MyTheme.Button.TextButton</item>
+        <item name="android:textColor">@color/small_text_button_text_color</item>
+        <item name="rippleColor">@android:color/transparent</item>
+    </style>
+
+    <style name="Widget.MyTheme.Button.OutlinedButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="shapeAppearance">@style/ShapeAppearance.MyTheme.Button</item>
+        <item name="android:textAppearance">@style/TextAppearance.MyTheme.Button</item>
+        <item name="strokeColor">?attr/colorPrimary</item>
+    </style>
+
+    <style name="Widget.MyTheme.Button.RadioButton" parent="Widget.MaterialComponents.CompoundButton.RadioButton">
+        <item name="android:button">@null</item>
+        <item name="android:gravity">center</item>
+        <!--item name="android:background">@drawable/bg_radio_button</item-->
+        <!--item name="android:textColor">@color/radio_button</item-->
+        <item name="android:textAppearance">@style/TextAppearance.MyTheme.Button</item>
+        <item name="android:minHeight">@dimen/radio_button_size</item>
+        <item name="android:padding">@dimen/margin_small</item>
+    </style>
+
+    <!--BottomNavigationView-->
+    <style name="Widget.MyTheme.BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView">
+        <!--item name="elevation">0dp</item-->
+        <item name="labelVisibilityMode">labeled</item>
+    </style>
+
+    <style name="ThemeOverlay.MyTheme.TextInputEditText.OutlinedBox" parent="ThemeOverlay.MaterialComponents.TextInputEditText.OutlinedBox">
+        <item name="hintEnabled">false</item>
+        <item name="android:textColorHint">@color/hint_color_selector</item>
+        <item name="editTextStyle">@style/Widget.MyTheme.TextInputEditText.OutlinedBox</item>
+    </style>
+
+    <style name="Widget.MyTheme.TextInputEditText.OutlinedBox" parent="Widget.MaterialComponents.TextInputEditText.OutlinedBox">
+        <item name="android:textAppearance">?attr/textAppearanceBody2</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:paddingTop">8dp</item>
+    </style>
+
+    <style name="Widget.MyTheme.TextInputLayout.OutlinedBox" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="materialThemeOverlay">
+            @style/ThemeOverlay.MyTheme.TextInputEditText.OutlinedBox
+        </item>
+        <item name="errorIconDrawable">@drawable/ic_error</item>
+        <item name="endIconTint">?android:textColorPrimary</item>
+        <item name="errorTextAppearance">?textAppearanceCaption</item>
+        <item name="boxStrokeColor">?boxColorList</item>
+    </style>
+
+
+    <style name="Widget.MyTheme.TextInputLayout.OutlinedBox.Light">
+        <item name="boxStrokeColor">@color/box_color_selector_light</item>
+    </style>
+
+    <!--CheckBox-->
+    <style name="Widget.MyTheme.CompoundButton.CheckBox" parent="Widget.MaterialComponents.CompoundButton.CheckBox">
+        <item name="android:textAppearance">?attr/textAppearanceCaption</item>
+        <item name="android:paddingStart">5dp</item>
+        <item name="buttonTint">?colorOnSurface</item>
     </style>
 
 </resources>

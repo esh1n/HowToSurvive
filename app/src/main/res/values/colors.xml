@@ -1,8 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#003330</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#800600</color>
+    <!--Color palette-->
+    <color name="amber_300">#f28151</color><!--Color primary (dark)-->
+    <color name="amber_500">#ef5e21</color><!--Color primary (light)-->
+    <color name="amber_600">#ce470f</color> <!--Color primary variant (dark)-->
+    <color name="amber_700">#b63f0d</color> <!--Color primary variant (light)-->
+
+    <color name="green_200">#268050</color><!--Color secondary-->
+    <color name="green_500">#1e6640</color><!--Color secondary variant-->
+
+    <color name="red_200">#cf6679</color> <!--Color error (dark)-->
+    <color name="red_600">#b00020</color> <!--Color error (light)-->
+
+    <!--Color surface (light), color on error (light), -->
+    <!--color on surface (dark), color on surface (dark)-->
+    <color name="white_50">#ffffff</color>
+
+    <color name="black_800">#121212</color> <!--Color surface (dark)-->
+    <!--Color on secondary (light), color on background (light),-->
+    <!--color on surface (light)-->
+    <color name="black_900">#000000</color>
 
     <color name="buttonLabel">#d3d3d3</color>
 

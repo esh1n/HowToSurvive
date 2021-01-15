@@ -39,7 +39,8 @@
 
     </TextView>
 
-    <ImageView
+    <androidx.appcompat.widget.AppCompatImageView
+        android:tint="?colorOnSurface"
         android:id="@+id/imageView"
         android:layout_width="@dimen/phone_icon_size"
         android:layout_height="@dimen/phone_icon_size"

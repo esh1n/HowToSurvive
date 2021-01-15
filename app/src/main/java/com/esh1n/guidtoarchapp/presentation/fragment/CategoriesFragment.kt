@@ -77,7 +77,7 @@ class CategoriesFragment : Fragment(R.layout.fragment_categories) {
 
     private fun openArticlesByCategory(category: CategoryEntry) {
         val categoryId = category.name
-        fragmentManager.addFragmentToStack(ArticlesByCategoryFragment.newInstance(categoryId))
+        parentFragmentManager.addFragmentToStack(ArticlesByCategoryFragment.newInstance(categoryId))
     }
 
 

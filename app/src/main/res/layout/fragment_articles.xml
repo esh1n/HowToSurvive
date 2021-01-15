@@ -2,15 +2,13 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?colorSurface"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@android:color/holo_orange_dark"
     android:orientation="vertical">
-
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/white"
         tools:listitem="@layout/item_article" />
 </FrameLayout>

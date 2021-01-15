@@ -17,4 +17,7 @@
     <string name="text_off">Off</string>
     <string name="text_remove_from_saved">Удалить из сохраненнных</string>
 
+    <string name="text_turn_on_dark_theme">Выключить темную тему</string>
+    <string name="text_turn_off_dark_theme">Включить темную тему</string>
+
 </resources>

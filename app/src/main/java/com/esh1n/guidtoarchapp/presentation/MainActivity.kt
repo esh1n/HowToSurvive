@@ -5,8 +5,12 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.Observer
+import com.esh1n.guidtoarchapp.App
 import com.esh1n.guidtoarchapp.R
 import com.esh1n.guidtoarchapp.presentation.fragment.MainFragmentTab
+import com.esh1n.guidtoarchapp.presentation.fragment.SettingsFragment
+import com.esh1n.guidtoarchapp.presentation.utils.addFragmentToStack
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.main_content.*
 
@@ -23,7 +27,11 @@ class MainActivity : AppCompatActivity() {
         val restoredMenu = getSelectedFragmentMenuId(savedInstanceState)
         bottom_navigation.selectedItemId = restoredMenu.itemId
         initFragmentTransactionsListener()
-        //NewWordActivity.startDialer(this)
+
+        (application as App).preferenceRepository
+            .nightModeLive.observe(this, Observer<Int> { nightMode ->
+                nightMode?.let { delegate.localNightMode = it }
+            })
     }
 
     private fun initFragmentTransactionsListener() {
@@ -129,20 +137,20 @@ class MainActivity : AppCompatActivity() {
 
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_main, menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
-            R.id.action_settings -> true
+            R.id.action_settings -> {
+                supportFragmentManager.addFragmentToStack(SettingsFragment.newInstance())
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
+
 
     override fun onSaveInstanceState(outState: Bundle) {
         outState.putInt(SELECTED_ITEM, selectedItem)

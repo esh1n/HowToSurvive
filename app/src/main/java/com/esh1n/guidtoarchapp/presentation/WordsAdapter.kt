@@ -51,7 +51,7 @@ class CategoriesAdapter internal constructor(
         holder.populate(current)
     }
 
-    internal fun setWords(words: List<CategoryEntry>) {
+    internal fun setCategories(words: List<CategoryEntry>) {
         this.words = words
         notifyDataSetChanged()
     }

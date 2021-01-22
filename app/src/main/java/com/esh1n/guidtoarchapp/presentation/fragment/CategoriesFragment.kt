@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.annotation.StringRes
@@ -65,37 +64,23 @@ class CategoriesFragment : Fragment(R.layout.fragment_categories) {
 
     override fun onPrepareOptionsMenu(menu: Menu) {
         super.onPrepareOptionsMenu(menu)
-        menu.let {
-            val searchItem: MenuItem? = menu.findItem(R.id.action_search)
-//            searchItem?.setOnActionExpandListener(object : MenuItem.OnActionExpandListener {
-//                override fun onMenuItemActionExpand(item: MenuItem): Boolean {
-//                    return true
-//                }
-//
-//                override fun onMenuItemActionCollapse(item: MenuItem): Boolean {
-//                    return true
-//                }
-//            })
-            if (searchItem != null) {
-                searchItem.expandActionView()
-                searchItem.actionView.clearFocus()
-                searchView = (searchItem.actionView as SearchView).apply {
-                    queryHint = getString(queryHintResourceId())
-                    onActionViewExpanded()
-                    setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                        override fun onQueryTextSubmit(query: String?): Boolean {
-                            return true
-                        }
-
-                        override fun onQueryTextChange(newText: String?): Boolean {
-                            newText?.let { viewModel.setSearchQuery(it) }
-                            return true
-                        }
+        menu.findItem(R.id.action_search)?.run {
+            expandActionView()
+            actionView.clearFocus()
+            searchView = (actionView as SearchView).apply {
+                queryHint = getString(queryHintResourceId())
+                onActionViewExpanded()
+                setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                    override fun onQueryTextSubmit(query: String?): Boolean {
+                        return true
                     }
-                    )
-                }
-            }
 
+                    override fun onQueryTextChange(newText: String?): Boolean {
+                        newText?.let { viewModel.setSearchQuery(it) }
+                        return true
+                    }
+                })
+            }
         }
     }
 
@@ -113,7 +98,7 @@ class CategoriesFragment : Fragment(R.layout.fragment_categories) {
         }
     }
 
-    private fun handleUiState(categories: List<CategoryEntry>) = adapter?.setWords(categories)
+    private fun handleUiState(categories: List<CategoryEntry>) = adapter?.setCategories(categories)
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)

@@ -12,8 +12,6 @@
         android:layout_marginStart="@dimen/margin_medium"
         android:text="@string/text_save_article"
         android:textAppearance="?textAppearanceSubtitle2"
-        android:textOff="@string/text_turn_off_dark_theme"
-        android:textOn="@string/text_turn_on_dark_theme"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

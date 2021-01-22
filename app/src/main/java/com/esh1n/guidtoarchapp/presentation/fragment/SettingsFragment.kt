@@ -3,10 +3,10 @@ package com.esh1n.guidtoarchapp.presentation.fragment
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import com.esh1n.guidtoarchapp.App
 import com.esh1n.guidtoarchapp.R
 import com.google.android.material.switchmaterial.SwitchMaterial
+import kotlinx.android.synthetic.main.fragment_settings.*
 
 class SettingsFragment : Fragment(R.layout.fragment_settings) {
 
@@ -15,9 +15,11 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
         val darkThemeSwitch: SwitchMaterial = view.findViewById(R.id.switch_dark_theme)
         val preferenceRepository = (requireActivity().application as App).preferenceRepository
 
+
         preferenceRepository.isDarkThemeLive.observe(
             viewLifecycleOwner,
-            Observer<Boolean> { isDarkTheme ->
+            { isDarkTheme ->
+                switch_dark_theme.setText(if (isDarkTheme) R.string.text_turn_on_dark_theme else R.string.text_turn_off_dark_theme)
                 isDarkTheme?.let { darkThemeSwitch.isChecked = it }
             })
 

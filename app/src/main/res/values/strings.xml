@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">КакВыжить</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Настройки</string>
     <string name="hint_word">Word...</string>
     <string name="button_save">Save</string>
     <string name="empty_not_saved">Word not saved because it is empty.</string>
@@ -19,7 +19,7 @@
 
     <string name="text_turn_on_dark_theme">Выключить темную тему</string>
     <string name="text_turn_off_dark_theme">Включить темную тему</string>
-    <string name="action_search">Search</string>
-    <string name="text_search_tegories">Search categories</string>
+    <string name="action_search">Поиск</string>
+    <string name="text_search_tegories">Поиск…</string>
 
 </resources>

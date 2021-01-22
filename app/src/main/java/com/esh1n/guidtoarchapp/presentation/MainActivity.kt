@@ -38,7 +38,6 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.addOnBackStackChangedListener { this.processFragmentsSwitching() }
     }
 
-
     private fun processFragmentsSwitching() {
 
         supportFragmentManager.let {

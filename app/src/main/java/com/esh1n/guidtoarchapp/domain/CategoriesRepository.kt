@@ -4,6 +4,11 @@ import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
 import com.esh1n.guidtoarchapp.data.CategoryDao
 import com.esh1n.guidtoarchapp.data.CategoryEntry
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.conflate
+import kotlinx.coroutines.flow.flowOn
 
 class CategoriesRepository(private val categoryDao: CategoryDao) {
 
@@ -12,5 +17,17 @@ class CategoriesRepository(private val categoryDao: CategoryDao) {
     @WorkerThread
     suspend fun insert(word: CategoryEntry) {
         categoryDao.insert(word)
+    }
+
+    @ExperimentalCoroutinesApi
+    fun queryCategories(search: String): Flow<List<CategoryEntry>> {
+        return categoryDao.queryCategories(search) //Get searched dogs from Room Database
+            //Combine the result with another flow
+//            .combine(topBreedsFlow) { dogs, topDogs ->
+//                dogs.applyToDog(topDogs)
+//            }
+            .flowOn(Dispatchers.Default)
+            //Return the latest values
+            .conflate()
     }
 }

@@ -5,12 +5,16 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 abstract class CategoryDao {
 
     @Query("SELECT * from category_table ORDER BY name ASC")
     abstract fun getAllCategories(): LiveData<List<CategoryEntry>>
+
+    @Query("SELECT * FROM category_table WHERE name LIKE '%' || :search || '%'")
+    abstract fun queryCategories(search: String?): Flow<List<CategoryEntry>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract suspend fun insert(word: CategoryEntry)

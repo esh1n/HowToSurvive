@@ -3,11 +3,16 @@ package com.esh1n.guidtoarchapp.presentation.fragment
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.annotation.StringRes
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.esh1n.guidtoarchapp.R
@@ -18,16 +23,20 @@ import com.esh1n.guidtoarchapp.presentation.NewWordActivity
 import com.esh1n.guidtoarchapp.presentation.adapter.SpaceItemDecoration
 import com.esh1n.guidtoarchapp.presentation.utils.addFragmentToStack
 import com.esh1n.guidtoarchapp.presentation.viewmodel.CategoryViewModel
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 class CategoriesFragment : Fragment(R.layout.fragment_categories) {
 
-    private lateinit var categoryViewModel: CategoryViewModel
+    private lateinit var viewModel: CategoryViewModel
 
     private var adapter: CategoriesAdapter? = null
 
+    private var searchView: SearchView? = null
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        categoryViewModel = ViewModelProviders.of(this).get(CategoryViewModel::class.java)
+        viewModel = ViewModelProviders.of(this).get(CategoryViewModel::class.java)
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerview)
         adapter = CategoriesAdapter(
@@ -39,11 +48,55 @@ class CategoriesFragment : Fragment(R.layout.fragment_categories) {
         recyclerView.addItemDecoration(dividerItemDecoration)
         recyclerView.layoutManager = LinearLayoutManager(requireActivity())
 
-//        fab.setOnClickListener {
-//            val intent = Intent(requireActivity(), NewWordActivity::class.java)
-//            startActivityForResult(intent, newWordActivityRequestCode)
-//        }
         observeData()
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        menu.clear()
+        inflater.inflate(R.menu.menu_main, menu)
+    }
+
+
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        super.onPrepareOptionsMenu(menu)
+        menu.let {
+            val searchItem: MenuItem? = menu.findItem(R.id.action_search)
+//            searchItem?.setOnActionExpandListener(object : MenuItem.OnActionExpandListener {
+//                override fun onMenuItemActionExpand(item: MenuItem): Boolean {
+//                    return true
+//                }
+//
+//                override fun onMenuItemActionCollapse(item: MenuItem): Boolean {
+//                    return true
+//                }
+//            })
+            if (searchItem != null) {
+                searchItem.expandActionView()
+                searchItem.actionView.clearFocus()
+                searchView = (searchItem.actionView as SearchView).apply {
+                    queryHint = getString(queryHintResourceId())
+                    onActionViewExpanded()
+                    setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                        override fun onQueryTextSubmit(query: String?): Boolean {
+                            return true
+                        }
+
+                        override fun onQueryTextChange(newText: String?): Boolean {
+                            newText?.let { viewModel.setSearchQuery(it) }
+                            return true
+                        }
+                    }
+                    )
+                }
+            }
+
+        }
     }
 
     override fun onResume() {
@@ -51,20 +104,25 @@ class CategoriesFragment : Fragment(R.layout.fragment_categories) {
         (requireActivity() as MainActivity).setABTitle(getString(R.string.text_categories))
     }
 
+    @StringRes
+    private fun queryHintResourceId() = R.string.text_search_tegories
+
     private fun observeData() {
-        categoryViewModel.allWords.observe(viewLifecycleOwner, Observer { words ->
-            // Update the cached copy of the words in the adapter.
-            words?.let { adapter?.setWords(it) }
-        })
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.uiState.collect(::handleUiState)
+        }
     }
+
+    private fun handleUiState(categories: List<CategoryEntry>) = adapter?.setWords(categories)
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == newWordActivityRequestCode && resultCode == Activity.RESULT_OK) {
             data?.let {
-                val word = CategoryEntry(it.getStringExtra(NewWordActivity.EXTRA_REPLY), "human")
-                categoryViewModel.insert(word)
+                val word =
+                    CategoryEntry(it.getStringExtra(NewWordActivity.EXTRA_REPLY) ?: "", "human")
+                viewModel.insert(word)
             }
         } else {
             Toast.makeText(

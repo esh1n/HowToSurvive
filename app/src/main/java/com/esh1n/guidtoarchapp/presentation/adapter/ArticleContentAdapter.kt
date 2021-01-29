@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.ToggleButton
 import androidx.recyclerview.widget.RecyclerView
 import com.esh1n.guidtoarchapp.R
 import com.esh1n.guidtoarchapp.presentation.adapter.ArticleContentAdapter.Companion.ITEM_BOLD_TEXT
@@ -13,7 +14,6 @@ import com.esh1n.guidtoarchapp.presentation.adapter.ArticleContentAdapter.Compan
 import com.esh1n.guidtoarchapp.presentation.adapter.ArticleContentAdapter.Companion.ITEM_TEXT
 import com.esh1n.guidtoarchapp.presentation.adapter.ArticleContentAdapter.Companion.ITEM_TITLE
 import com.esh1n.guidtoarchapp.presentation.utils.UiUtils
-import com.google.android.material.switchmaterial.SwitchMaterial
 
 
 class ArticleContentAdapter constructor(
@@ -28,7 +28,7 @@ class ArticleContentAdapter constructor(
     inner class TitleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         private val titleTextView: TextView = itemView.findViewById(R.id.tv_title)
-        private val saveArticleSwitch: SwitchMaterial =
+        private val saveArticleSwitch: ToggleButton =
             itemView.findViewById(R.id.switch_save_article)
 
         fun populate(article: TitleModel) {

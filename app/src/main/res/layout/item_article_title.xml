@@ -1,27 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:gravity="center_vertical"
     android:layout_marginStart="@dimen/big_padding"
     android:layout_marginEnd="@dimen/big_padding"
-    android:orientation="vertical">
+    android:orientation="horizontal">
 
     <TextView
+        android:layout_width="0dp"
         android:id="@+id/tv_title"
-        android:layout_width="wrap_content"
+        android:layout_gravity="start"
         android:layout_height="wrap_content"
-        android:text="@string/app_name"
-        android:textAppearance="?textAppearanceHeadline3" />
+        android:layout_marginEnd="@dimen/small_padding"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:text="Холодная травмаХолодная травма"
+        android:textAppearance="?textAppearanceHeadline4"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/switch_save_article"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.switchmaterial.SwitchMaterial
+    <ToggleButton
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="end"
+        android:layout_margin="8dp"
+        android:background="@drawable/bg_toogle"
+        android:scaleType="centerCrop"
+        android:textOff=""
         android:id="@+id/switch_save_article"
-        android:layout_width="wrap_content"
+        android:textOn=""
         android:textAppearance="?textAppearanceSubtitle2"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/small_padding"
-        android:layout_marginBottom="32dip"
-        android:text="@string/text_save_article"
-        android:textOff="@string/text_off"
-        android:textOn="@string/text_off" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

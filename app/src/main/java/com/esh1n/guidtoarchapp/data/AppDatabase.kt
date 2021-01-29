@@ -55,11 +55,11 @@ public abstract class AppDatabase : RoomDatabase() {
             val categories = arrayListOf(
                 CategoryEntry("Медицина", "medicine"),
                 CategoryEntry("Быт", "human"),
-                CategoryEntry("Терроризм", "security"),
-                CategoryEntry("Природные катаклизмы", "security"),
-                CategoryEntry("Безопасность в сети", "security"),
-                CategoryEntry("Насилие", "security"),
-                CategoryEntry("Половое воспитание", "security")
+                CategoryEntry("Терроризм", "security_terrorizm"),
+                CategoryEntry("Природные катаклизмы", "nature"),
+                CategoryEntry("Безопасность в сети", "security_info"),
+                CategoryEntry("Насилие", "people_security"),
+                CategoryEntry("Половое воспитание", "sex_education")
             )
             val articles = arrayListOf(
                 ArticleEntry(

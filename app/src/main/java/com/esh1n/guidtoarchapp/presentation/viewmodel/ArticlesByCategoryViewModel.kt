@@ -20,7 +20,7 @@ class ArticlesByCategoryViewModel(application: Application) : AndroidViewModel(a
     private val articlesRepository: ArticlesRepository
 
     init {
-        val database = AppDatabase.getDatabase(application, viewModelScope)
+        val database = AppDatabase.getDatabase(application)
         val wordsDao = database.wordDao()
         val artcilesDao = database.articlesDao()
         repository = CategoriesRepository(wordsDao)

@@ -20,7 +20,7 @@ class ArticleViewModel(application: Application) : AndroidViewModel(application)
     private lateinit var articleId: String
 
     init {
-        val db = AppDatabase.getDatabase(application, viewModelScope)
+        val db = AppDatabase.getDatabase(application)
         val wordsDao = db.wordDao()
         val artcilesDao = db.articlesDao()
         categoriesRepository = CategoriesRepository(wordsDao)

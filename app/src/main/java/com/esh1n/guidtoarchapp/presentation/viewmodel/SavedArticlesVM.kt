@@ -16,7 +16,7 @@ class SavedArticlesVM(application: Application) : AndroidViewModel(application) 
     private val articlesRepository: ArticlesRepository
 
     init {
-        val articlesDao = AppDatabase.getDatabase(application, viewModelScope).articlesDao()
+        val articlesDao = AppDatabase.getDatabase(application).articlesDao()
         articlesRepository = ArticlesRepository(articlesDao)
     }
 

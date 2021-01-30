@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
 class CategoryViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository =
-        CategoriesRepository(AppDatabase.getDatabase(application, viewModelScope).wordDao())
+        CategoriesRepository(AppDatabase.getDatabase(application).wordDao())
 
     private val queryFlow = MutableStateFlow("")
 

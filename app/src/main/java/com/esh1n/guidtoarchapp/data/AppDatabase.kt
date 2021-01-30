@@ -7,6 +7,7 @@ import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 
@@ -15,22 +16,21 @@ public abstract class AppDatabase : RoomDatabase() {
     abstract fun wordDao(): CategoryDao
     abstract fun articlesDao(): ArticleDao
 
-
     companion object {
         @Volatile
         private var INSTANCE: AppDatabase? = null
 
-        fun getDatabase(context: Context, scope: CoroutineScope): AppDatabase =
+        fun getDatabase(context: Context): AppDatabase =
             INSTANCE ?: synchronized(this) {
-                INSTANCE ?: buildDatabase(context, scope).also { INSTANCE = it }
+                INSTANCE ?: buildDatabase(context).also { INSTANCE = it }
             }
 
-        private fun buildDatabase(context: Context, scope: CoroutineScope) =
+        private fun buildDatabase(context: Context) =
             Room.databaseBuilder(
                 context.applicationContext,
                 AppDatabase::class.java,
                 "Word_database"
-            ).addCallback(WordDatabaseCallback(scope))
+            ).addCallback(WordDatabaseCallback(GlobalScope))
                 .fallbackToDestructiveMigration()
                 .build()
     }

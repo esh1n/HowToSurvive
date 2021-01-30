@@ -55,7 +55,7 @@ public abstract class AppDatabase : RoomDatabase() {
             val categories = arrayListOf(
                 CategoryEntry("Медицина", "medicine"),
                 CategoryEntry("Быт", "human"),
-                CategoryEntry("Терроризм", "security_terrorizm"),
+                CategoryEntry("Терроризм", "security_terrorism"),
                 CategoryEntry("Природные катаклизмы", "nature"),
                 CategoryEntry("Безопасность в сети", "security_info"),
                 CategoryEntry("Насилие", "people_security"),
@@ -345,7 +345,7 @@ public abstract class AppDatabase : RoomDatabase() {
                             "Напоить прохладной водой.\n" +
                             "\n" +
                             "В случае потери сознания возбудить дыхание нашатырным спиртом и перевернуть пострадавшего на бок.\n",
-                    "Медицинв",
+                    "Медицина",
                     false
                 ),
                 ArticleEntry(

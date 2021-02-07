@@ -3,59 +3,40 @@ package com.esh1n.guidtoarchapp.presentation.fragment
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.esh1n.guidtoarchapp.R
 import com.esh1n.guidtoarchapp.presentation.adapter.ArticleContentAdapter
 import com.esh1n.guidtoarchapp.presentation.viewmodel.ArticleViewModel
 
-class ArticleFragment : Fragment(R.layout.fragment_acticle) {
+class ArticleFragment : Fragment(R.layout.fragment_article) {
 
-    private lateinit var viewModel: ArticleViewModel
+    private val viewModel: ArticleViewModel by viewModels()
 
     private lateinit var adapter: ArticleContentAdapter
 
+    private val args: ArticleFragmentArgs by navArgs()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(ArticleViewModel::class.java)
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerview)
         adapter = ArticleContentAdapter(requireActivity(), viewModel::toogleSavedState)
-//        val dividerItemDecoration =
-//            DividerItemDecoration(requireActivity(), DividerItemDecoration.VERTICAL)
-        recyclerView.adapter = adapter
-//        recyclerView.addItemDecoration(dividerItemDecoration)
-        recyclerView.layoutManager = LinearLayoutManager(requireActivity())
-
+        with(recyclerView) {
+            this.adapter = adapter
+            layoutManager = LinearLayoutManager(requireActivity())
+        }
     }
 
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(ArticleViewModel::class.java)
-        viewModel.getArticleItems(getArticleId()).observe(viewLifecycleOwner, Observer {
+        viewModel.getArticleItems(args.articleId).observe(viewLifecycleOwner, {
             it?.let {
                 adapter.setArticleItems(it)
             }
         })
     }
 
-
-    private fun getArticleId(): String {
-        return arguments?.getString(ARG_ID) ?: ""
-    }
-
-    companion object {
-        private const val ARG_ID = "ARG_ID"
-
-        fun newInstance(id: String): ArticleFragment {
-            return ArticleFragment()
-                .apply {
-                    arguments = Bundle().apply {
-                        putString(ARG_ID, id)
-                    }
-                }
-        }
-    }
 }

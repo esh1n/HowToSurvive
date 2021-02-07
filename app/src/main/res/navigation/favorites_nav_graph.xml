@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/menu_favorites"
+    app:startDestination="@id/FavoritesContainerFragment">
+
+    <fragment
+        android:id="@+id/FavoritesContainerFragment"
+        android:name="com.esh1n.guidtoarchapp.presentation.fragment.SavedArticlesFragment"
+        android:label="@string/favorite_articles"
+        tools:layout="@layout/fragment_articles">
+
+        <action
+            android:id="@+id/action__FavoritesContainerFragment__to__ArticleFragment"
+            app:destination="@id/article_nav_graph" />
+
+        <action
+            android:id="@+id/action__FavoritesContainerFragment__to__ABottomSheet"
+            app:destination="@id/FilterBottomSheet" />
+
+    </fragment>
+
+    <dialog
+        android:id="@+id/FilterBottomSheet"
+        android:name="com.esh1n.guidtoarchapp.presentation.dialogs.dialog_a.ABottomSheetDialog">
+
+        <action
+            android:id="@+id/action__ABottomSheet__to__BBottomSheet"
+            app:destination="@id/BBottomSheet"
+            app:popUpTo="@id/FilterBottomSheet"
+            app:popUpToInclusive="true" />
+
+    </dialog>
+
+    <dialog
+        android:id="@+id/BBottomSheet"
+        android:name="com.aaglobal.jnc_playground.ui.dialogs.dialog_b.BBottomSheetDialog">
+
+        <action
+            android:id="@+id/action__BBottomSheet__to__ABottomSheet"
+            app:destination="@id/FilterBottomSheet"
+            app:popUpTo="@id/BBottomSheet"
+            app:popUpToInclusive="true" />
+
+    </dialog>
+
+    <include app:graph="@navigation/article_nav_graph" />
+
+</navigation>

@@ -30,7 +30,7 @@ class ArticlesAdapter internal constructor(
         }
 
         override fun onClick(v: View?) {
-            val category = articleDescriptions[adapterPosition]
+            val category = articleDescriptions[bindingAdapterPosition]
             clickOnItem(category)
         }
     }

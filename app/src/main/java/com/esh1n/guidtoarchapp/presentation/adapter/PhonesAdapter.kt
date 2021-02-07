@@ -32,7 +32,7 @@ class PhonesAdapter internal constructor(
         }
 
         override fun onClick(v: View?) {
-            val category = phones[adapterPosition]
+            val category = phones[bindingAdapterPosition]
             clickOnItem(category)
         }
     }

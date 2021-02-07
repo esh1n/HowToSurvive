@@ -36,8 +36,9 @@ class CategoriesAdapter internal constructor(
         }
 
         override fun onClick(v: View?) {
-            val category = words[adapterPosition]
-            clickOnItem(category)
+            words.getOrNull(bindingAdapterPosition)?.let {
+                clickOnItem(it)
+            }
         }
     }
 

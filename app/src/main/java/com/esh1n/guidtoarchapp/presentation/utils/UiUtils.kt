@@ -2,6 +2,7 @@ package com.esh1n.guidtoarchapp.presentation.utils
 
 import android.content.Context
 import android.view.View
+import androidx.recyclerview.widget.RecyclerView
 
 object UiUtils {
     fun getCategoryImage(context: Context, iconId: String, prefix: String = "ic_"): Int {
@@ -16,4 +17,7 @@ object UiUtils {
     fun View.click(action: (() -> Unit)?) {
         setOnClickListener { action?.invoke() }
     }
+
+    inline fun <reified T : RecyclerView.Adapter<out RecyclerView.ViewHolder>> RecyclerView.adapter() =
+        adapter as T
 }

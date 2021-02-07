@@ -4,11 +4,11 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
-import com.esh1n.guidtoarchapp.R
 
 inline fun <reified T : Activity> Context?.startActivity() {
     this?.let {
@@ -28,13 +28,14 @@ inline fun <reified T : Activity> Context?.startActivity(args: Bundle) {
 fun FragmentActivity?.addSingleFragmentToContainer(
     fragment: Fragment,
     hide: Boolean = false,
-    tag: String? = fragment.tag
+    tag: String? = fragment.tag,
+    @IdRes containerViewId: Int
 ) {
     this?.let {
         val fragmentNotExist =
-            supportFragmentManager.findFragmentById(R.id.container_fragment) == null
+            supportFragmentManager.findFragmentById(containerViewId) == null
         if (fragmentNotExist) {
-            addFragment(fragment, hide, tag)
+            addFragment(fragment, hide, tag, containerViewId)
         }
     }
 }
@@ -42,11 +43,11 @@ fun FragmentActivity?.addSingleFragmentToContainer(
 fun FragmentActivity?.addFragment(
     fragment: Fragment,
     hide: Boolean = false,
-    tag: String? = fragment.tag
+    tag: String? = fragment.tag, @IdRes containerViewId: Int
 ) {
     this?.let {
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.add(R.id.container_fragment, fragment, tag)
+        transaction.add(containerViewId, fragment, tag)
         if (hide) {
             transaction.hide(fragment)
         }
@@ -54,19 +55,19 @@ fun FragmentActivity?.addFragment(
     }
 }
 
-fun FragmentManager?.replaceFragment(fragment: Fragment, tag: String) {
+fun FragmentManager?.replaceFragment(fragment: Fragment, tag: String, @IdRes containerViewId: Int) {
     this?.let {
         val transaction = beginTransaction()
-        transaction.replace(R.id.container_fragment, fragment, tag)
+        transaction.replace(containerViewId, fragment, tag)
         transaction.commit()
     }
 }
 
-fun FragmentManager?.addFragmentToStack(fragment: Fragment) {
+fun FragmentManager?.addFragmentToStack(fragment: Fragment, @IdRes containerViewId: Int) {
     this?.let {
         val tag = fragment.javaClass.simpleName
         val transaction = beginTransaction()
-        transaction.add(R.id.container_fragment, fragment, tag)
+        transaction.add(containerViewId, fragment, tag)
         transaction.addToBackStack(null).commit()
     }
 }

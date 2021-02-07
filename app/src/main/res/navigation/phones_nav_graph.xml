@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/menu_phones"
+    app:startDestination="@id/PhonesContainerFragment">
+
+    <fragment
+        android:id="@+id/PhonesContainerFragment"
+        android:name="com.esh1n.guidtoarchapp.presentation.fragment.PhonesFragment"
+        android:label="@string/menu_saved_phones"
+        tools:layout="@layout/fragment_phones"></fragment>
+
+</navigation>

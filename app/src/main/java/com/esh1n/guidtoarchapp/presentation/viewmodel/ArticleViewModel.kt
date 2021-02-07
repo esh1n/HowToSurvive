@@ -2,11 +2,9 @@ package com.esh1n.guidtoarchapp.presentation.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.*
-import com.esh1n.guidtoarchapp.data.AppDatabase
 import com.esh1n.guidtoarchapp.data.ArticleEntry
-import com.esh1n.guidtoarchapp.domain.ArticlesRepository
-import com.esh1n.guidtoarchapp.domain.CategoriesRepository
 import com.esh1n.guidtoarchapp.presentation.adapter.*
+import com.esh1n.guidtoarchapp.presentation.di.GlobalDI
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.regex.Matcher
@@ -15,16 +13,8 @@ import java.util.regex.Pattern
 
 class ArticleViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val categoriesRepository: CategoriesRepository
-    private val articlesRepository: ArticlesRepository
+    private val articlesRepository = GlobalDI.getArticlesRepository()
     private lateinit var articleId: String
-
-    init {
-        val wordsDao = AppDatabase.getDatabase(application, viewModelScope).wordDao()
-        val artcilesDao = AppDatabase.getDatabase(application, viewModelScope).articlesDao()
-        categoriesRepository = CategoriesRepository(wordsDao)
-        articlesRepository = ArticlesRepository(artcilesDao)
-    }
 
     private fun getArticlesById(id: String): LiveData<ArticleEntry> {
         articleId = id

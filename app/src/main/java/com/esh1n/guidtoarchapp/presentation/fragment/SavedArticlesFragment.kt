@@ -7,13 +7,14 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.esh1n.guidtoarchapp.R
-import com.esh1n.guidtoarchapp.presentation.MainActivity
+import com.esh1n.guidtoarchapp.presentation.RootActivity
 import com.esh1n.guidtoarchapp.presentation.adapter.ArticlesAdapter
-import com.esh1n.guidtoarchapp.presentation.utils.addFragmentToStack
+import com.esh1n.guidtoarchapp.presentation.utils.setABTitle
 import com.esh1n.guidtoarchapp.presentation.viewmodel.SavedArticlesVM
 
 class SavedArticlesFragment : Fragment(R.layout.fragment_articles) {
@@ -32,9 +33,8 @@ class SavedArticlesFragment : Fragment(R.layout.fragment_articles) {
         recyclerView.adapter = adapter
         recyclerView.addItemDecoration(dividerItemDecoration)
         recyclerView.layoutManager = LinearLayoutManager(requireActivity())
-        //adapter.setArticles(getCategoryId())
         val title = getString(R.string.favorite_articles)
-        (requireActivity() as MainActivity).setABTitle(title)
+        (requireActivity() as RootActivity).setABTitle(title)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -56,15 +56,9 @@ class SavedArticlesFragment : Fragment(R.layout.fragment_articles) {
     }
 
     private fun openArticleById(id: String) {
-        parentFragmentManager.addFragmentToStack(ArticleFragment.newInstance(id))
+        findNavController().navigate(
+            R.id.action__FavoritesContainerFragment__to__ArticleFragment,
+            ArticleFragmentArgs(articleId = id).toBundle()
+        )
     }
-
-
-    companion object {
-
-        fun newInstance(): SavedArticlesFragment {
-            return SavedArticlesFragment()
-        }
-    }
-
 }

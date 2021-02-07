@@ -16,7 +16,8 @@ class CategoriesRepository(private val categoryDao: CategoryDao) {
 
     @WorkerThread
     suspend fun insert(word: CategoryEntry) {
-        categoryDao.insert(word)
+        val unit = categoryDao.insert(word)
+        return unit;
     }
 
     @ExperimentalCoroutinesApi

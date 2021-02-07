@@ -37,7 +37,7 @@ class ArticleContentAdapter constructor(
                 if (article.isSaved) R.string.text_remove_from_saved else R.string.text_save_article
             saveArticleSwitch.text = itemView.context.getString(switchResource)
             saveArticleSwitch.isChecked = article.isSaved
-            saveArticleSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
+            saveArticleSwitch.setOnCheckedChangeListener { _, isChecked ->
                 saveListener(isChecked)
             }
         }
@@ -54,7 +54,6 @@ class ArticleContentAdapter constructor(
             //3. индекс начала и конца строки
             //4. по индексам выделить жирным
             titleTextView.text = article.value
-            val existEven = listOf(1, 2, 3).any { item -> item % 2 == 0 }
         }
 
     }

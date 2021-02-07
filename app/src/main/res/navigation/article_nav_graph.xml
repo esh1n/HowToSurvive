@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/article_nav_graph"
+    app:startDestination="@id/ArticleFragment">
+
+    <fragment
+        android:id="@+id/ArticleFragment"
+        android:name="com.esh1n.guidtoarchapp.presentation.fragment.ArticleFragment"
+        android:label="{articleId}"
+        tools:layout="@layout/fragment_article">
+
+        <argument
+            android:name="articleId"
+            app:argType="string"
+            app:nullable="false" />
+
+        <!-- Define deep links for navigation from other features -->
+        <deepLink app:uri="articleFlow://openScreen/{articleId}" />
+
+        <action
+            android:id="@+id/action__ArticleFragment__to__ArticleFragment"
+            app:destination="@id/ArticleFragment" />
+
+    </fragment>
+
+</navigation>

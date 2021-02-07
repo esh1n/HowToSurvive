@@ -3,8 +3,8 @@ package com.esh1n.guidtoarchapp.presentation.fragment
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import com.esh1n.guidtoarchapp.App
 import com.esh1n.guidtoarchapp.R
+import com.esh1n.guidtoarchapp.presentation.di.GlobalDI
 import com.google.android.material.switchmaterial.SwitchMaterial
 import kotlinx.android.synthetic.main.fragment_settings.*
 
@@ -13,7 +13,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val darkThemeSwitch: SwitchMaterial = view.findViewById(R.id.switch_dark_theme)
-        val preferenceRepository = (requireActivity().application as App).preferenceRepository
+        val preferenceRepository = GlobalDI.getPreferenceRepository()
 
 
         preferenceRepository.isDarkThemeLive.observe(
@@ -28,10 +28,4 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
         }
     }
 
-    companion object {
-
-        fun newInstance(): SettingsFragment {
-            return SettingsFragment()
-        }
-    }
 }

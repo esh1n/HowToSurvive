@@ -21,5 +21,24 @@
     <string name="text_turn_off_dark_theme">Включить темную тему</string>
     <string name="action_search">Поиск</string>
     <string name="text_search_tegories">Поиск…</string>
+    <string name="fragment_splash__title">Splash title</string>
+    <string name="main_bottom_navigation__profile">Profile</string>
+    <string name="next_article">Следующая статья</string>
+    <string name="fragment_profile_container__title">Profile container</string>
+    <!-- region Auth flow -->
+    <string name="fragment_start_auth__title">Start auth</string>
+    <string name="fragment_start_auth__open_next_screen">Open next auth screen</string>
+    <string name="fragment_finish_auth__title">Finish auth screen</string>
+    <string name="fragment_finish_auth__finish_flow">Finish auth flow</string>
+    <string name="fragment_profile_container__open_auth_flow">Open auth flow</string>
+    <!-- endregion -->
+    <!-- region Dialogs -->
+    <string name="dialog_a_bottom_sheet__counter">Counter: %1$d</string>
+    <string name="dialog_a_bottom_sheet__title">Dialog (A)</string>
+    <string name="dialog_a_bottom_sheet__increase_counter">Increase counter</string>
+    <string name="dialog_a_bottom_sheet__go_to_next_screen">Go to next screen</string>
+    <string name="dialog_b_bottom_sheet__title">Dialog (B)</string>
+    <string name="dialog_b_bottom_sheet__close_current_dialog">Close current dialog</string>
+    <!-- endregion -->
 
 </resources>

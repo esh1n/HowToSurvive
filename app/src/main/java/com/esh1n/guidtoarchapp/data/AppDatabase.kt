@@ -7,33 +7,32 @@ import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 
 @Database(entities = [CategoryEntry::class, ArticleEntry::class], version = 4)
 public abstract class AppDatabase : RoomDatabase() {
-    abstract fun wordDao(): CategoryDao
+    abstract fun categoryDao(): CategoryDao
     abstract fun articlesDao(): ArticleDao
-
 
     companion object {
         @Volatile
         private var INSTANCE: AppDatabase? = null
 
-        fun getDatabase(context: Context, scope: CoroutineScope): AppDatabase {
-            return INSTANCE ?: synchronized(this) {
-                // Create database here
-                val instance = Room.databaseBuilder(
-                    context.applicationContext,
-                    AppDatabase::class.java,
-                    "Word_database"
-                ).addCallback(WordDatabaseCallback(scope))
-                    .fallbackToDestructiveMigration()
-                    .build()
-                INSTANCE = instance
-                instance
+        fun getDatabase(context: Context): AppDatabase =
+            INSTANCE ?: synchronized(this) {
+                INSTANCE ?: buildDatabase(context).also { INSTANCE = it }
             }
-        }
+
+        private fun buildDatabase(context: Context) =
+            Room.databaseBuilder(
+                context.applicationContext,
+                AppDatabase::class.java,
+                "Word_database"
+            ).addCallback(WordDatabaseCallback(GlobalScope))
+                .fallbackToDestructiveMigration()
+                .build()
     }
 
     private class WordDatabaseCallback(
@@ -44,7 +43,7 @@ public abstract class AppDatabase : RoomDatabase() {
             super.onOpen(db)
             INSTANCE?.let { database ->
                 scope.launch(Dispatchers.IO) {
-                    populateDatabase(database.wordDao(), database.articlesDao())
+                    populateDatabase(database.categoryDao(), database.articlesDao())
                 }
             }
         }
@@ -55,7 +54,7 @@ public abstract class AppDatabase : RoomDatabase() {
             val categories = arrayListOf(
                 CategoryEntry("Медицина", "medicine"),
                 CategoryEntry("Быт", "human"),
-                CategoryEntry("Терроризм", "security_terrorizm"),
+                CategoryEntry("Терроризм", "security_terrorism"),
                 CategoryEntry("Природные катаклизмы", "nature"),
                 CategoryEntry("Безопасность в сети", "security_info"),
                 CategoryEntry("Насилие", "people_security"),
@@ -73,15 +72,14 @@ public abstract class AppDatabase : RoomDatabase() {
                             "5. Держи пострадавшего в тепле.\n" +
                             "6. Покрой область ожога прохладной влажной повязкой или чистой тканью.\n" +
                             "7. Подними рану выше уровня сердца, если это возможно.\n" +
-                            "\n"+
+                            "\n" +
                             "Вызови скорую, если:\n" +
                             "\n" +
                             "- поврежденная область кажется обугленной или имеет пятно белого, коричневого или черного цвета\n" +
                             "- повреждение по размеру больше указательного пальца или покрывает руку, ногу, лицо, пах, ягодицы\n" +
                             "- ожог химический или электрический\n" +
                             "- есть признаки шока: холодная, липкая кожа, повышенное потоотделение, учащенное дыхание, слабость или головокружение\n" +
-                            "- возраст пострадавшего менее 5 лет или более 60, есть серьезные сопутствующие заболевания\n}"
-                    ,
+                            "- возраст пострадавшего менее 5 лет или более 60, есть серьезные сопутствующие заболевания\n}",
                     "Медицина",
                     true
                 ),
@@ -112,12 +110,14 @@ public abstract class AppDatabase : RoomDatabase() {
                             "волдыри - 2 степень обморожения (видно только после отогревания, возможно проявление через 6-12 часов)\n" +
                             "потемнение и отмирание - 3 степень обморожения (видно только после отогревания)",
                     "Медицина",
-                    true                ),
+                    true
+                ),
                 ArticleEntry(
                     "Электрический ожог",
                     "{text:1. Срочно вызови скорую помощь.\n" +
                             "2. Если человек получил травму от источника низкого напряжения (до 220-240 В), например, от бытовой электросети, безопасно отключи питание. Отсоедени человека от источника питания, используя материал, не проводящий электричество: деревянная палочка или деревянный стул.\n" +
-                            "3. Не приближайся к человеку, который подключен к источнику высокого напряжения (1000В или более).\n}}",
+                            "3. Не приближайся к человеку, который подключен к источнику высокого напряжения (1000В или более).\n" +
+                            "}",
                     "Медицина",
                     true
                 ),
@@ -223,15 +223,16 @@ public abstract class AppDatabase : RoomDatabase() {
                     false
                 ),
 
-                ArticleEntry("Утечка газа",
+                ArticleEntry(
+                    "Утечка газа",
                     "{text:Первым делом позвони в службу газа.\n" +
-                        "Звонить нужно из помещения, не наполненного газом. До приезда аварийной службы:\n" +
-                        "- перекрой газопроводный кран\n" +
-                        "- проветри помещение(устрой сквозняк)\n" +
-                        "- не зажигай огонь, не включай и не выключай никаких электроприборов\n" +
-                        " покинь помещение и не заходи в него до исчезновения запаха газа\n" +
-                        " \n" +
-                        "При появлении у окружающих признаков отравления газом выведи их на свежий воздух и положи так, чтобы голова находилась выше ног. Вызови скорую медицинскую помощь.\n}",
+                            "Звонить нужно из помещения, не наполненного газом. До приезда аварийной службы:\n" +
+                            "- перекрой газопроводный кран\n" +
+                            "- проветри помещение(устрой сквозняк)\n" +
+                            "- не зажигай огонь, не включай и не выключай никаких электроприборов\n" +
+                            " покинь помещение и не заходи в него до исчезновения запаха газа\n" +
+                            " \n" +
+                            "При появлении у окружающих признаков отравления газом выведи их на свежий воздух и положи так, чтобы голова находилась выше ног. Вызови скорую медицинскую помощь.\n}",
                     "Быт",
                     false
                 ),
@@ -345,7 +346,7 @@ public abstract class AppDatabase : RoomDatabase() {
                             "Напоить прохладной водой.\n" +
                             "\n" +
                             "В случае потери сознания возбудить дыхание нашатырным спиртом и перевернуть пострадавшего на бок.\n",
-                    "Медицинв",
+                    "Медицина",
                     false
                 ),
                 ArticleEntry(

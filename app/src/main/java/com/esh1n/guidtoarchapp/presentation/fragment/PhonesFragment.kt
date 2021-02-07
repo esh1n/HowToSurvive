@@ -11,10 +11,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.esh1n.guidtoarchapp.R
 import com.esh1n.guidtoarchapp.data.PhoneEntry
-import com.esh1n.guidtoarchapp.presentation.MainActivity
+import com.esh1n.guidtoarchapp.presentation.RootActivity
 import com.esh1n.guidtoarchapp.presentation.adapter.PhonesAdapter
+import com.esh1n.guidtoarchapp.presentation.utils.setABTitle
 
-class PhonesFragment : Fragment(R.layout.fragment_acticle) {
+class PhonesFragment : Fragment(R.layout.fragment_phones) {
     private var adapter: PhonesAdapter? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -55,7 +56,7 @@ class PhonesFragment : Fragment(R.layout.fragment_acticle) {
 
     override fun onResume() {
         super.onResume()
-        (requireActivity() as MainActivity).setABTitle(getString(R.string.text_phones))
+        (requireActivity() as RootActivity).setABTitle(getString(R.string.text_phones))
     }
 
     companion object {

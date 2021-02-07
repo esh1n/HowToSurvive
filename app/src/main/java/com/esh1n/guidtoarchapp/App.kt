@@ -17,21 +17,11 @@
 package com.esh1n.guidtoarchapp
 
 import android.app.Application
-import android.content.Context
-import com.esh1n.guidtoarchapp.data.PreferenceRepository
+import com.esh1n.guidtoarchapp.presentation.di.GlobalDI
 
 class App : Application() {
-
-    lateinit var preferenceRepository: PreferenceRepository
-
     override fun onCreate() {
         super.onCreate()
-        preferenceRepository = PreferenceRepository(
-            getSharedPreferences(DEFAULT_PREFERENCES, Context.MODE_PRIVATE)
-        )
-    }
-
-    companion object {
-        const val DEFAULT_PREFERENCES = "default_preferences"
+        GlobalDI.initWithContext(this)
     }
 }

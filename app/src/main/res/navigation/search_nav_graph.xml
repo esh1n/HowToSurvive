@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/menu_search"
+    app:startDestination="@id/SearchContainerFragment">
+
+    <fragment
+        android:id="@+id/SearchContainerFragment"
+        android:name="com.esh1n.guidtoarchapp.presentation.fragment.SearchCategoriesFragment"
+        android:label="@string/action_search"
+        tools:layout="@layout/fragment_categories">
+
+        <!-- Deep link for the first bottom navigation tab -->
+        <deepLink app:uri="www.example.com/main" />
+
+        <action
+            android:id="@+id/action__SearchContainerFragment__to__ArticlesByCategoryFragment"
+            app:destination="@id/ArticlesByCategoryFragment" />
+
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/ArticlesByCategoryFragment"
+        android:name="com.esh1n.guidtoarchapp.presentation.fragment.ArticlesByCategoryFragment"
+        tools:layout="@layout/fragment_articles">
+
+        <argument
+            android:name="categoryId"
+            app:argType="string"
+            app:nullable="false" />
+
+        <action
+            android:id="@+id/action__ArticlesByCategoryFragment__to__ArticleFragment"
+            app:destination="@id/article_nav_graph" />
+
+    </fragment>
+
+    <include app:graph="@navigation/article_nav_graph" />
+
+</navigation>

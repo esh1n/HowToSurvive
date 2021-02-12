@@ -10,6 +10,7 @@ import com.esh1n.guidtoarchapp.R
 import com.esh1n.guidtoarchapp.presentation.adapter.ArticleContentAdapter
 import com.esh1n.guidtoarchapp.presentation.utils.UiUtils.adapter
 import com.esh1n.guidtoarchapp.presentation.utils.observeNonNull
+import com.esh1n.guidtoarchapp.presentation.utils.openBrowser
 import com.esh1n.guidtoarchapp.presentation.viewmodel.ArticleViewModel
 import kotlinx.android.synthetic.main.fragment_article.*
 
@@ -22,17 +23,21 @@ class ArticleFragment : Fragment(R.layout.fragment_article) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         with(recyclerview) {
-            this.adapter = ArticleContentAdapter(requireActivity(), viewModel::toogleSavedState)
+            this.adapter = ArticleContentAdapter(
+                requireActivity(),
+                viewModel::toogleSavedState,
+                viewModel::openLink
+            )
             layoutManager = LinearLayoutManager(requireActivity())
         }
+        with(viewModel) {
+            getArticleItems(args.articleId).observeNonNull(viewLifecycleOwner, {
+                recyclerview.adapter<ArticleContentAdapter>().setArticleItems(it)
+            })
+            linkHandlerLiveData.observeNonNull(
+                viewLifecycleOwner,
+                { url -> requireActivity().openBrowser(url) })
+        }
+
     }
-
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel.getArticleItems(args.articleId).observeNonNull(viewLifecycleOwner, {
-            recyclerview.adapter<ArticleContentAdapter>().setArticleItems(it)
-        })
-    }
-
 }

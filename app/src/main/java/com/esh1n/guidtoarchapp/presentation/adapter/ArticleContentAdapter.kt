@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.esh1n.guidtoarchapp.R
 import com.esh1n.guidtoarchapp.presentation.adapter.ArticleContentAdapter.Companion.ITEM_BOLD_TEXT
 import com.esh1n.guidtoarchapp.presentation.adapter.ArticleContentAdapter.Companion.ITEM_IMAGE
+import com.esh1n.guidtoarchapp.presentation.adapter.ArticleContentAdapter.Companion.ITEM_LINK
 import com.esh1n.guidtoarchapp.presentation.adapter.ArticleContentAdapter.Companion.ITEM_TEXT
 import com.esh1n.guidtoarchapp.presentation.adapter.ArticleContentAdapter.Companion.ITEM_TITLE
 import com.esh1n.guidtoarchapp.presentation.utils.UiUtils
@@ -18,7 +19,8 @@ import com.esh1n.guidtoarchapp.presentation.utils.UiUtils
 
 class ArticleContentAdapter constructor(
     context: Context,
-    private val saveListener: (Boolean) -> Unit
+    private val saveListener: (Boolean) -> Unit,
+    private val linkAction: (String) -> Unit
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -68,6 +70,16 @@ class ArticleContentAdapter constructor(
 
     }
 
+    inner class LinkViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+        private val titleTextView: TextView = itemView.findViewById(R.id.tv_text)
+
+        fun populate(link: LinkModel) {
+            UiUtils.SpannableLinkInfo(link.value).setTo(titleTextView) { linkAction(link.value) }
+        }
+
+    }
+
     inner class ImageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         private val imageView: ImageView = itemView.findViewById(R.id.iv_image)
@@ -97,6 +109,10 @@ class ArticleContentAdapter constructor(
                 val itemView = inflater.inflate(R.layout.item_article_image, parent, false)
                 ImageViewHolder(itemView)
             }
+            ITEM_LINK -> {
+                val itemView = inflater.inflate(R.layout.item_article_text, parent, false)
+                LinkViewHolder(itemView)
+            }
             else -> {
                 val itemView = inflater.inflate(R.layout.item_article_image, parent, false)
                 ImageViewHolder(itemView)
@@ -117,6 +133,10 @@ class ArticleContentAdapter constructor(
             }
             is TextBoldViewHolder -> {
                 val currentWeather = getItem(position) as TextBoldModel
+                holder.populate(currentWeather)
+            }
+            is LinkViewHolder -> {
+                val currentWeather = getItem(position) as LinkModel
                 holder.populate(currentWeather)
             }
             else -> {
@@ -151,6 +171,7 @@ class ArticleContentAdapter constructor(
         const val ITEM_TEXT = 2
         const val ITEM_BOLD_TEXT = 3
         const val ITEM_IMAGE = 4
+        const val ITEM_LINK = 5
     }
 }
 
@@ -159,3 +180,4 @@ class TitleModel(value: String, val isSaved: Boolean) : BaseModel(ITEM_TITLE, va
 class TextModel(value: String) : BaseModel(ITEM_TEXT, value)
 class TextBoldModel(value: String) : BaseModel(ITEM_BOLD_TEXT, value)
 class ImageModel(imagePath: String) : BaseModel(ITEM_IMAGE, imagePath)
+class LinkModel(value: String) : BaseModel(ITEM_LINK, value)

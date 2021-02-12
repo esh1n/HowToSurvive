@@ -5,6 +5,7 @@ import androidx.lifecycle.*
 import com.esh1n.guidtoarchapp.data.ArticleEntry
 import com.esh1n.guidtoarchapp.presentation.adapter.*
 import com.esh1n.guidtoarchapp.presentation.di.GlobalDI
+import com.esh1n.guidtoarchapp.presentation.utils.livedata.LiveDataFactory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.regex.Matcher
@@ -15,6 +16,8 @@ class ArticleViewModel(application: Application) : AndroidViewModel(application)
 
     private val articlesRepository = GlobalDI.getArticlesRepository()
     private lateinit var articleId: String
+
+    val linkHandlerLiveData = LiveDataFactory.mutable<String>()
 
     private fun getArticlesById(id: String): LiveData<ArticleEntry> {
         articleId = id
@@ -47,6 +50,7 @@ class ArticleViewModel(application: Application) : AndroidViewModel(application)
             "textBold" -> return TextBoldModel(content)
             "text" -> return TextModel(content)
             "image" -> return ImageModel(content)
+            "link" -> return LinkModel(content)
         }
         return null
     }
@@ -54,5 +58,9 @@ class ArticleViewModel(application: Application) : AndroidViewModel(application)
 
     fun toogleSavedState(checked: Boolean) = viewModelScope.launch(Dispatchers.IO) {
         articlesRepository.markAsSaved(articleId, checked)
+    }
+
+    fun openLink(url: String) {
+        linkHandlerLiveData.value = url
     }
 }

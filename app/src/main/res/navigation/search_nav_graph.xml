@@ -22,6 +22,7 @@
 
 
     <fragment
+        android:label="{categoryId}"
         android:id="@+id/ArticlesByCategoryFragment"
         android:name="com.esh1n.guidtoarchapp.presentation.fragment.ArticlesByCategoryFragment"
         tools:layout="@layout/fragment_articles">

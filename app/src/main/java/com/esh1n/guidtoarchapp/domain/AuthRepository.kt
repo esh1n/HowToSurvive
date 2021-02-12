@@ -8,9 +8,7 @@ import android.content.SharedPreferences
 class AuthRepository(private val sharedPrefs: SharedPreferences) {
 
     companion object {
-        private const val PREFS_AUTH_NAME = "auth_prefs"
-
-        private const val PREFS_HAS_AUTH_DATA = "${PREFS_AUTH_NAME}.has_auth_data"
+        private const val PREFS_HAS_AUTH_DATA = "has_auth_data"
     }
 
     fun putHasAuthData(hasAuthData: Boolean) {
@@ -20,5 +18,4 @@ class AuthRepository(private val sharedPrefs: SharedPreferences) {
     }
 
     fun hasAuthData(): Boolean = sharedPrefs.getBoolean(PREFS_HAS_AUTH_DATA, false)
-
 }

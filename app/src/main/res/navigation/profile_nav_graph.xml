@@ -7,8 +7,8 @@
 
     <fragment
         android:id="@+id/ProfileContainerFragment"
-        android:name="com.esh1n.guidtoarchapp.presentation.profile.ProfileContainerFragment"
-        android:label="@string/fragment_profile_container__title"
-        tools:layout="@layout/fragment_profile_container" />
+        android:name="com.esh1n.guidtoarchapp.presentation.fragment.SettingsFragment"
+        android:label="@string/fragment_settings_title"
+        tools:layout="@layout/fragment_settings" />
 
 </navigation>

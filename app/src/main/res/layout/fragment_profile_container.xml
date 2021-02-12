@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_medium"
-        android:text="@string/fragment_profile_container__title"
+        android:text="@string/fragment_settings_title"
         android:textAppearance="?textAppearanceHeadline4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

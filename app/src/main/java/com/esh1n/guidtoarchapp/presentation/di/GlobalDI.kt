@@ -40,5 +40,5 @@ object GlobalDI {
 
     fun getPreferenceRepository() = PreferenceRepository(prefs)
 
-    private const val DEFAULT_PREFERENCES = "default_preferences"
+    private const val DEFAULT_PREFERENCES = "myapp_preferences"
 }

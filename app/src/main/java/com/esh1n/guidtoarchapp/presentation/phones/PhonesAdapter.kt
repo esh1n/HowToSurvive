@@ -1,4 +1,4 @@
-package com.esh1n.guidtoarchapp.presentation.adapter
+package com.esh1n.guidtoarchapp.presentation.phones
 
 import android.content.Context
 import android.view.LayoutInflater

@@ -1,4 +1,4 @@
-package com.esh1n.guidtoarchapp.presentation.adapter
+package com.esh1n.guidtoarchapp.presentation.articles.adapter
 
 import android.content.Context
 import android.view.LayoutInflater

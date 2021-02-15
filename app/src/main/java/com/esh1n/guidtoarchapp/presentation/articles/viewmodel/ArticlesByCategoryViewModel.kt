@@ -1,4 +1,4 @@
-package com.esh1n.guidtoarchapp.presentation.viewmodel
+package com.esh1n.guidtoarchapp.presentation.articles.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel

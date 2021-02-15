@@ -1,4 +1,4 @@
-package com.esh1n.guidtoarchapp.presentation.fragment
+package com.esh1n.guidtoarchapp.presentation.phones
 
 import android.content.Context
 import android.content.Intent
@@ -11,9 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.esh1n.guidtoarchapp.R
 import com.esh1n.guidtoarchapp.data.PhoneEntry
-import com.esh1n.guidtoarchapp.presentation.RootActivity
-import com.esh1n.guidtoarchapp.presentation.adapter.PhonesAdapter
-import com.esh1n.guidtoarchapp.presentation.utils.setABTitle
 
 class PhonesFragment : Fragment(R.layout.fragment_phones) {
     private var adapter: PhonesAdapter? = null
@@ -52,17 +49,5 @@ class PhonesFragment : Fragment(R.layout.fragment_phones) {
         val intent = Intent(Intent.ACTION_DIAL)
         intent.data = Uri.parse("tel:$phone")
         context.startActivity(intent)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        (requireActivity() as RootActivity).setABTitle(getString(R.string.text_phones))
-    }
-
-    companion object {
-
-        fun newInstance(): PhonesFragment {
-            return PhonesFragment()
-        }
     }
 }

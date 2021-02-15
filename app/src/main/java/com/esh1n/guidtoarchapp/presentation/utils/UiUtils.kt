@@ -9,6 +9,9 @@ import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
+import androidx.annotation.StringRes
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 
 object UiUtils {
@@ -71,3 +74,11 @@ object UiUtils {
 }
 
 fun Activity.openBrowser(url: String) = startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+
+fun Fragment.showToast(message: String) {
+    Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+}
+
+fun Fragment.showToast(@StringRes messageResId: Int) {
+    showToast(requireContext().getString(messageResId))
+}

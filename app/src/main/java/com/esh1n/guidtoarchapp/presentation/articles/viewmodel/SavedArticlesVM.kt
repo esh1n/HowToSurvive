@@ -1,4 +1,4 @@
-package com.esh1n.guidtoarchapp.presentation.viewmodel
+package com.esh1n.guidtoarchapp.presentation.articles.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -12,7 +12,7 @@ class SavedArticlesVM(application: Application) : AndroidViewModel(application) 
     private val articlesRepository = GlobalDI.getArticlesRepository()
 
     fun getSavedArticles(): LiveData<List<ArticleEntry>> {
-        return liveData() {
+        return liveData {
             emitSource(articlesRepository.savedArticles())
         }
     }

@@ -1,4 +1,4 @@
-package com.esh1n.guidtoarchapp.presentation.viewmodel
+package com.esh1n.guidtoarchapp.presentation.categories
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -22,7 +22,7 @@ class CategoryViewModel(application: Application) : AndroidViewModel(application
         .map { query -> return@map if (query.isEmpty()) "" else query }
         .distinctUntilChanged()
         .flatMapLatest { query -> categoriesRepository.queryCategories(query) }
-        .flowOn(Dispatchers.Default)
+        .flowOn(Dispatchers.IO)
 
     val uiState: Flow<List<CategoryEntry>>
         get() = _categoriesFlow

@@ -39,6 +39,9 @@
     <string name="dialog_a_bottom_sheet__go_to_next_screen">Go to next screen</string>
     <string name="dialog_b_bottom_sheet__title">Dialog (B)</string>
     <string name="dialog_b_bottom_sheet__close_current_dialog">Close current dialog</string>
+
+    <string name="text_added_to_saved">Добавлена в сохраненные</string>
+    <string name="text_removed_from_saved">Удалена из сохраненных</string>
     <!-- endregion -->
 
 </resources>

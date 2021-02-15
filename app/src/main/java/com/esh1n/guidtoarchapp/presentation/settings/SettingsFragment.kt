@@ -1,4 +1,4 @@
-package com.esh1n.guidtoarchapp.presentation.fragment
+package com.esh1n.guidtoarchapp.presentation.settings
 
 import android.os.Bundle
 import android.view.View

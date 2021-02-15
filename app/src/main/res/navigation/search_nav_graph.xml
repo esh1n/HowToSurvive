@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/SearchContainerFragment"
-        android:name="com.esh1n.guidtoarchapp.presentation.fragment.SearchCategoriesFragment"
+        android:name="com.esh1n.guidtoarchapp.presentation.categories.SearchCategoriesFragment"
         android:label="@string/action_search"
         tools:layout="@layout/fragment_categories">
 
@@ -24,7 +24,7 @@
     <fragment
         android:label="{categoryId}"
         android:id="@+id/ArticlesByCategoryFragment"
-        android:name="com.esh1n.guidtoarchapp.presentation.fragment.ArticlesByCategoryFragment"
+        android:name="com.esh1n.guidtoarchapp.presentation.articles.ArticlesByCategoryFragment"
         tools:layout="@layout/fragment_articles">
 
         <argument

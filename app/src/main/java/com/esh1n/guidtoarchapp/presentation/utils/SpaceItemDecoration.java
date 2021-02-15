@@ -1,4 +1,4 @@
-package com.esh1n.guidtoarchapp.presentation.adapter;
+package com.esh1n.guidtoarchapp.presentation.utils;
 
 import android.graphics.Rect;
 import android.view.View;

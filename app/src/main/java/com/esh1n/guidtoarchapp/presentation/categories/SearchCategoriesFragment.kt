@@ -1,4 +1,4 @@
-package com.esh1n.guidtoarchapp.presentation.fragment
+package com.esh1n.guidtoarchapp.presentation.categories
 
 import android.os.Bundle
 import android.view.Menu
@@ -16,14 +16,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.esh1n.guidtoarchapp.R
 import com.esh1n.guidtoarchapp.data.CategoryEntry
-import com.esh1n.guidtoarchapp.presentation.CategoriesAdapter
-import com.esh1n.guidtoarchapp.presentation.adapter.SpaceItemDecoration
+import com.esh1n.guidtoarchapp.presentation.utils.SpaceItemDecoration
 import com.esh1n.guidtoarchapp.presentation.utils.UiUtils.adapter
-import com.esh1n.guidtoarchapp.presentation.viewmodel.CategoryViewModel
 import kotlinx.android.synthetic.main.fragment_categories.*
 import kotlinx.android.synthetic.main.fragment_main.view.*
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 
 class SearchCategoriesFragment : Fragment(R.layout.fragment_categories) {
 
@@ -34,7 +31,8 @@ class SearchCategoriesFragment : Fragment(R.layout.fragment_categories) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
-        val dividerItemDecoration = SpaceItemDecoration(32)
+        val dividerItemDecoration =
+            SpaceItemDecoration(32)
         with(recyclerview) {
             this.adapter = CategoriesAdapter(
                 requireActivity(),
@@ -43,7 +41,7 @@ class SearchCategoriesFragment : Fragment(R.layout.fragment_categories) {
             addItemDecoration(dividerItemDecoration)
             layoutManager = LinearLayoutManager(requireActivity())
         }
-        observeData()
+
         viewLifecycleOwner.lifecycle.addObserver(object :
             LifecycleObserver {
 
@@ -60,6 +58,7 @@ class SearchCategoriesFragment : Fragment(R.layout.fragment_categories) {
                 getParentToolbar()?.menu?.clear()
             }
         })
+        observeData()
     }
 
     private fun getParentToolbar(): Toolbar? = parentFragment?.parentFragment?.view?.toolbar
@@ -90,7 +89,7 @@ class SearchCategoriesFragment : Fragment(R.layout.fragment_categories) {
     private fun queryHintResourceId() = R.string.text_search_tegories
 
     private fun observeData() {
-        viewLifecycleOwner.lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.uiState.collect(::handleUiState)
         }
     }

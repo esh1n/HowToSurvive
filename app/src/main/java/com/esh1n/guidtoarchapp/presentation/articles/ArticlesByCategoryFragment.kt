@@ -1,4 +1,4 @@
-package com.esh1n.guidtoarchapp.presentation.fragment
+package com.esh1n.guidtoarchapp.presentation.articles
 
 import android.os.Bundle
 import android.view.View
@@ -11,11 +11,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.esh1n.guidtoarchapp.R
 import com.esh1n.guidtoarchapp.presentation.RootActivity
-import com.esh1n.guidtoarchapp.presentation.adapter.ArticlesAdapter
+import com.esh1n.guidtoarchapp.presentation.articles.adapter.ArticlesAdapter
+import com.esh1n.guidtoarchapp.presentation.articles.viewmodel.ArticlesByCategoryViewModel
 import com.esh1n.guidtoarchapp.presentation.utils.UiUtils.adapter
 import com.esh1n.guidtoarchapp.presentation.utils.observeNonNull
 import com.esh1n.guidtoarchapp.presentation.utils.setABTitle
-import com.esh1n.guidtoarchapp.presentation.viewmodel.ArticlesByCategoryViewModel
 import kotlinx.android.synthetic.main.fragment_articles.*
 
 class ArticlesByCategoryFragment : Fragment(R.layout.fragment_articles) {

@@ -1,4 +1,4 @@
-package com.esh1n.guidtoarchapp.presentation.adapter
+package com.esh1n.guidtoarchapp.presentation.articles.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -9,11 +9,11 @@ import android.widget.TextView
 import android.widget.ToggleButton
 import androidx.recyclerview.widget.RecyclerView
 import com.esh1n.guidtoarchapp.R
-import com.esh1n.guidtoarchapp.presentation.adapter.ArticleContentAdapter.Companion.ITEM_BOLD_TEXT
-import com.esh1n.guidtoarchapp.presentation.adapter.ArticleContentAdapter.Companion.ITEM_IMAGE
-import com.esh1n.guidtoarchapp.presentation.adapter.ArticleContentAdapter.Companion.ITEM_LINK
-import com.esh1n.guidtoarchapp.presentation.adapter.ArticleContentAdapter.Companion.ITEM_TEXT
-import com.esh1n.guidtoarchapp.presentation.adapter.ArticleContentAdapter.Companion.ITEM_TITLE
+import com.esh1n.guidtoarchapp.presentation.articles.adapter.ArticleContentAdapter.Companion.ITEM_BOLD_TEXT
+import com.esh1n.guidtoarchapp.presentation.articles.adapter.ArticleContentAdapter.Companion.ITEM_IMAGE
+import com.esh1n.guidtoarchapp.presentation.articles.adapter.ArticleContentAdapter.Companion.ITEM_LINK
+import com.esh1n.guidtoarchapp.presentation.articles.adapter.ArticleContentAdapter.Companion.ITEM_TEXT
+import com.esh1n.guidtoarchapp.presentation.articles.adapter.ArticleContentAdapter.Companion.ITEM_TITLE
 import com.esh1n.guidtoarchapp.presentation.utils.UiUtils
 
 
@@ -25,7 +25,7 @@ class ArticleContentAdapter constructor(
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
-    private var articleModels = emptyList<BaseModel>()
+    private var articleModels = emptyList<UiArticlePart>()
 
     inner class TitleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -148,13 +148,13 @@ class ArticleContentAdapter constructor(
 
     }
 
-    private fun getItem(position: Int): BaseModel? {
+    private fun getItem(position: Int): UiArticlePart? {
         return if (articleModels.isNullOrEmpty() || position == articleModels.size)
             null
         else articleModels[position]
     }
 
-    fun setArticleItems(models: List<BaseModel>) {
+    fun setArticleItems(models: List<UiArticlePart>) {
         this.articleModels = models
         notifyDataSetChanged()
     }
@@ -175,9 +175,9 @@ class ArticleContentAdapter constructor(
     }
 }
 
-sealed class BaseModel(val index: Int, val value: String)
-class TitleModel(value: String, val isSaved: Boolean) : BaseModel(ITEM_TITLE, value)
-class TextModel(value: String) : BaseModel(ITEM_TEXT, value)
-class TextBoldModel(value: String) : BaseModel(ITEM_BOLD_TEXT, value)
-class ImageModel(imagePath: String) : BaseModel(ITEM_IMAGE, imagePath)
-class LinkModel(value: String) : BaseModel(ITEM_LINK, value)
+sealed class UiArticlePart(val index: Int, val value: String)
+class TitleModel(value: String, val isSaved: Boolean) : UiArticlePart(ITEM_TITLE, value)
+class TextModel(value: String) : UiArticlePart(ITEM_TEXT, value)
+class TextBoldModel(value: String) : UiArticlePart(ITEM_BOLD_TEXT, value)
+class ImageModel(imagePath: String) : UiArticlePart(ITEM_IMAGE, imagePath)
+class LinkModel(value: String) : UiArticlePart(ITEM_LINK, value)

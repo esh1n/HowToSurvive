@@ -5,6 +5,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 abstract class ArticleDao {
@@ -12,7 +13,7 @@ abstract class ArticleDao {
     abstract fun getArticlesByCategory(categoryName: String): LiveData<List<ArticleEntry>>
 
     @Query("SELECT * from article_table WHERE name=:id")
-    abstract fun getArticleById(id: String): LiveData<ArticleEntry>
+    abstract fun getArticleById(id: String): Flow<ArticleEntry>
 
     @Query("SELECT * from article_table WHERE isSaved = 1")
     abstract fun getSavedArticles(): LiveData<List<ArticleEntry>>

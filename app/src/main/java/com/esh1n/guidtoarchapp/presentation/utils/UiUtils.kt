@@ -10,7 +10,11 @@ import android.text.style.ClickableSpan
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.ColorInt
+import androidx.annotation.ColorRes
+import androidx.annotation.DimenRes
 import androidx.annotation.StringRes
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 
@@ -82,3 +86,32 @@ fun Fragment.showToast(message: String) {
 fun Fragment.showToast(@StringRes messageResId: Int) {
     showToast(requireContext().getString(messageResId))
 }
+
+val Context.screenWidth: Int
+    get() = resources.displayMetrics.widthPixels
+
+fun Context.toPixelsFromResource(@DimenRes dimenRes: Int) =
+    resources.getDimensionPixelSize(dimenRes)
+
+fun Fragment.toPixelsFromResource(@DimenRes dimenRes: Int) =
+    resources.getDimensionPixelSize(dimenRes)
+
+fun Context.getDimensionFromAttribute(attrId: Int): Int {
+    val typedArray = theme.obtainStyledAttributes(intArrayOf(attrId))
+    return typedArray.getDimensionPixelSize(0, 0).apply { typedArray.recycle() }
+}
+
+fun Context.toPixels(dps: Int) = (dps * density).toInt()
+
+val Context.density
+    get() = resources.displayMetrics.density
+
+@ColorInt
+fun Context.getIntColor(@ColorRes colorRes: Int): Int = ContextCompat.getColor(this, colorRes)
+
+@ColorInt
+fun Context.getColorFromAttribute(attrId: Int): Int {
+    val typedArray = theme.obtainStyledAttributes(intArrayOf(attrId))
+    return typedArray.getColor(0, 0).apply { typedArray.recycle() }
+}
+

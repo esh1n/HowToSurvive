@@ -16,8 +16,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.esh1n.guidtoarchapp.R
 import com.esh1n.guidtoarchapp.data.CategoryEntry
-import com.esh1n.guidtoarchapp.presentation.utils.SpaceItemDecoration
 import com.esh1n.guidtoarchapp.presentation.utils.UiUtils.adapter
+import com.esh1n.guidtoarchapp.presentation.utils.getColorFromAttribute
+import com.esh1n.guidtoarchapp.presentation.utils.itemdecoration.Decorator
+import com.esh1n.guidtoarchapp.presentation.utils.itemdecoration.decor.*
+import com.esh1n.guidtoarchapp.presentation.utils.toPixels
 import kotlinx.android.synthetic.main.fragment_categories.*
 import kotlinx.android.synthetic.main.fragment_main.view.*
 import kotlinx.coroutines.flow.collect
@@ -30,15 +33,12 @@ class SearchCategoriesFragment : Fragment(R.layout.fragment_categories) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setHasOptionsMenu(true)
-        val dividerItemDecoration =
-            SpaceItemDecoration(32)
         with(recyclerview) {
             this.adapter = CategoriesAdapter(
                 requireActivity(),
                 ::openArticlesByCategory
             )
-            addItemDecoration(dividerItemDecoration)
+            addItemDecoration(decorator)
             layoutManager = LinearLayoutManager(requireActivity())
         }
 
@@ -106,5 +106,55 @@ class SearchCategoriesFragment : Fragment(R.layout.fragment_categories) {
                 categoryId
             )
         )
+    }
+
+    private val horizontalOffsetDecor by lazy {
+
+        SimpleOffsetDrawer(
+            left = requireContext().toPixels(16),
+            right = requireContext().toPixels(16)
+        )
+    }
+
+    private val horizontalAndVerticalOffsetDecor by lazy {
+
+        SimpleOffsetDrawer(
+            left = requireContext().toPixels(16),
+            top = requireContext().toPixels(8),
+            right = requireContext().toPixels(16),
+            bottom = requireContext().toPixels(8)
+        )
+    }
+
+    private val dividerDrawer2Dp by lazy {
+        LinearDividerDrawer(
+            Gap(
+                requireContext().getColorFromAttribute(R.attr.colorOnSurface),
+                requireContext().toPixels(1),
+                paddingStart = requireContext().toPixels(16),
+                paddingEnd = requireContext().toPixels(16),
+                rule = Rules.MIDDLE
+            )
+        )
+    }
+
+    private val roundDecor by lazy {
+        RoundDecor(
+            requireContext().toPixels(12).toFloat(),
+            roundPolitic = RoundPolitic.SingleGroup()
+        )
+    }
+    private val paralaxDecor by lazy {
+        ParallaxDecor(requireContext(), R.drawable.ic_save_masks)
+    }
+
+    private val decorator by lazy {
+        Decorator.Builder()
+            .underlay(CategoriesAdapter.BANNER_ITEM_TYPE to paralaxDecor)
+            .overlay(CategoriesAdapter.CATEGORY_ITEM_TYPE to roundDecor)
+            .offset(CategoriesAdapter.CATEGORY_ITEM_TYPE to horizontalAndVerticalOffsetDecor)
+            .offset(CategoriesAdapter.BANNER_ITEM_TYPE to horizontalOffsetDecor)
+            //.overlay(CategoriesAdapter.CATEGORY_ITEM_TYPE to dividerDrawer2Dp)
+            .build()
     }
 }

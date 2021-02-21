@@ -13,10 +13,14 @@ import com.esh1n.guidtoarchapp.presentation.articles.viewmodel.ArticleViewModel
 import com.esh1n.guidtoarchapp.presentation.articles.viewmodel.Effect
 import com.esh1n.guidtoarchapp.presentation.articles.viewmodel.Wish
 import com.esh1n.guidtoarchapp.presentation.utils.UiUtils.adapter
+import com.esh1n.guidtoarchapp.presentation.utils.itemdecoration.Decorator
+import com.esh1n.guidtoarchapp.presentation.utils.itemdecoration.decor.ScrollBarDecor
 import com.esh1n.guidtoarchapp.presentation.utils.openBrowser
 import com.esh1n.guidtoarchapp.presentation.utils.showToast
+import com.esh1n.guidtoarchapp.presentation.utils.toPixels
 import kotlinx.android.synthetic.main.fragment_article.*
 import kotlinx.coroutines.flow.collect
+import ru.ozh.recycler.decorator.chat.decor.CircleBarDecor
 
 class ArticleFragment : Fragment(R.layout.fragment_article) {
 
@@ -57,6 +61,11 @@ class ArticleFragment : Fragment(R.layout.fragment_article) {
                 { viewModel.passWish(Wish.OnToggleSaved(it)) },
                 { viewModel.passWish(Wish.OnOpenLink(it)) }
             )
+            val decorator = Decorator.Builder()
+                .underlay(CircleBarDecor(context.toPixels(100)))
+                .overlay(ScrollBarDecor(context.toPixels(8)))
+                .build()
+            addItemDecoration(decorator)
             layoutManager = LinearLayoutManager(requireActivity())
         }
         observeData()

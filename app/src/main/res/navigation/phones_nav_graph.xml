@@ -9,6 +9,6 @@
         android:id="@+id/PhonesContainerFragment"
         android:name="com.esh1n.guidtoarchapp.presentation.phones.PhonesFragment"
         android:label="@string/menu_saved_phones"
-        tools:layout="@layout/fragment_phones"></fragment>
+        tools:layout="@layout/fragment_phones" />
 
 </navigation>

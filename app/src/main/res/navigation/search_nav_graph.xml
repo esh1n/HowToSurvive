@@ -15,6 +15,11 @@
         <deepLink app:uri="www.example.com/main" />
 
         <action
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit"
+            app:popEnterAnim="@anim/fragment_close_enter"
+            app:popExitAnim="@anim/fragment_close_exit"
+
             android:id="@+id/action__SearchContainerFragment__to__ArticlesByCategoryFragment"
             app:destination="@id/ArticlesByCategoryFragment" />
 
@@ -33,6 +38,10 @@
             app:nullable="false" />
 
         <action
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
             android:id="@+id/action__ArticlesByCategoryFragment__to__ArticleFragment"
             app:destination="@id/article_nav_graph" />
 

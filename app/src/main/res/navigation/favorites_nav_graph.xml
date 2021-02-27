@@ -12,6 +12,10 @@
         tools:layout="@layout/fragment_articles">
 
         <action
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit"
+            app:popEnterAnim="@anim/fragment_close_enter"
+            app:popExitAnim="@anim/fragment_close_exit"
             android:id="@+id/action__FavoritesContainerFragment__to__ArticleFragment"
             app:destination="@id/article_nav_graph" />
 

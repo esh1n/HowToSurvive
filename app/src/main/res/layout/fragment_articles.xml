@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:background="?colorSurface"
     xmlns:tools="http://schemas.android.com/tools"
+    android:transitionName="@string/category_card_detail_transition_name"
     android:orientation="vertical">
 
     <androidx.recyclerview.widget.RecyclerView

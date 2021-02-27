@@ -4,17 +4,16 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.esh1n.guidtoarchapp.R
 import com.esh1n.guidtoarchapp.data.CategoryEntry
+import com.esh1n.guidtoarchapp.databinding.ItemCategoryBinding
 import com.esh1n.guidtoarchapp.presentation.utils.UiUtils
 import kotlin.math.ceil
 
 class CategoriesAdapter internal constructor(
     context: Context,
-    private val clickOnItem: (CategoryEntry) -> (Unit)
+    private val clickOnItem: (View, CategoryEntry) -> (Unit)
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
@@ -22,22 +21,23 @@ class CategoriesAdapter internal constructor(
 
     inner class CategoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
-        private val titleTextView: TextView = itemView.findViewById(R.id.tv_title)
-        private val categoryImageView: ImageView = itemView.findViewById(R.id.iv_category_logo)
+        private val categoryBinding = ItemCategoryBinding.bind(itemView)
 
         init {
             itemView.setOnClickListener(this)
         }
 
         fun populate(word: CategoryEntry) {
-            titleTextView.text = word.name
+            categoryBinding.id = word.name
+            categoryBinding.tvTitle.text = word.name
             val categoryImageSource = UiUtils.getCategoryImage(itemView.context, word.iconId)
-            categoryImageView.setImageResource(categoryImageSource)
+            categoryBinding.ivCategoryLogo.setImageResource(categoryImageSource)
+            categoryBinding.executePendingBindings()
         }
 
-        override fun onClick(v: View?) {
+        override fun onClick(v: View) {
             (items.getOrNull(bindingAdapterPosition) as? CategoryItem)?.let {
-                clickOnItem(it.category)
+                clickOnItem(v, it.category)
             }
         }
     }

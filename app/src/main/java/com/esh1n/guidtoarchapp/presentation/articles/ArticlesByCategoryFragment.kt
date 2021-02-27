@@ -24,6 +24,18 @@ class ArticlesByCategoryFragment : Fragment(R.layout.fragment_articles) {
 
     private val args: ArticlesByCategoryFragmentArgs by navArgs()
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+//        sharedElementEnterTransition = MaterialContainerTransform().apply {
+//            drawingViewId = R.id.activity_root__fragment__nav_host
+//            duration = resources.getInteger(R.integer.reply_motion_duration_large).toLong()
+//            scrimColor = Color.TRANSPARENT
+//            setAllContainerColors(requireContext().getColorFromAttribute(R.attr.colorSurface))
+//        }
+    }
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 

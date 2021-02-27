@@ -2,7 +2,7 @@
 
 ext {
     roomVersion = '2.2.6'
-    archLifecycleVersion = '2.2.0'
+    archLifecycleVersion = '2.3.0'
     androidxArchVersion = '2.1.0'
     coroutines = '1.4.2'
     navigationComponentVersion = "2.3.3"

@@ -99,12 +99,15 @@ class SearchCategoriesFragment : Fragment(R.layout.fragment_categories) {
     }
 
 
-    private fun openArticlesByCategory(category: CategoryEntry) {
+    private fun openArticlesByCategory(view: View, category: CategoryEntry) {
         val categoryId = category.name
+        val emailCardDetailTransitionName = getString(R.string.category_card_detail_transition_name)
+//        val extras = FragmentNavigatorExtras(view to emailCardDetailTransitionName)
         findNavController().navigate(
             SearchCategoriesFragmentDirections.actionSearchContainerFragmentToArticlesByCategoryFragment(
                 categoryId
             )
+//            ),extras
         )
     }
 

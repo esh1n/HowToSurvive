@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.esh1n.guidtoarchapp.presentation.di.GlobalDI
 import com.esh1n.guidtoarchapp.presentation.utils.livedata.LiveDataFactory
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 
@@ -22,11 +21,9 @@ class SplashViewModel : ViewModel() {
 
     val splashNavCommand: LiveData<SplashNavCommand?> = _splashNavCommand
 
-
     init {
         // Add special delay for splash screen
         viewModelScope.launch {
-            delay(SPLASH_DELAY_IN_MS)
 
             val navCommand = if (authRepository.hasAuthData()) {
                 SplashNavCommand.NAVIGATE_TO_MAIN

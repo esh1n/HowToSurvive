@@ -27,4 +27,8 @@
     <dimen name="bottom_sheet_elevation">5dp</dimen>
 
     <dimen name="radio_button_size">41dp</dimen>
+
+    <integer name="reply_motion_duration_large">300</integer>
+    <integer name="reply_motion_duration_medium">225</integer>
+    <integer name="reply_motion_duration_small">175</integer>
 </resources>

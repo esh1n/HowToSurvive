@@ -44,4 +44,7 @@
     <string name="text_removed_from_saved">Удалена из сохраненных</string>
     <!-- endregion -->
 
+    <string name="category_card_transition_name">category_card_%1$s</string>
+    <string name="category_card_detail_transition_name">category_card_detail</string>
+
 </resources>

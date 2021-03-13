@@ -6,7 +6,7 @@
         motion:autoTransition="animateToEnd"
         motion:constraintSetEnd="@+id/end"
         motion:constraintSetStart="@id/start"
-        motion:duration="2200">
+        motion:duration="1000">
         <KeyFrameSet>
             <KeyAttribute
                 android:scaleX="1.0"
@@ -16,6 +16,7 @@
                 android:scaleY="1.0"
                 motion:framePosition="0"
                 motion:motionTarget="@+id/imageView" />
+
             <KeyAttribute
                 android:scaleX="0.7"
                 motion:framePosition="20"
@@ -24,35 +25,38 @@
                 android:scaleY="0.7"
                 motion:framePosition="20"
                 motion:motionTarget="@+id/imageView" />
+
             <KeyAttribute
                 android:scaleX="0.7"
-                motion:framePosition="60"
+                motion:framePosition="40"
                 motion:motionTarget="@+id/imageView" />
             <KeyAttribute
                 android:scaleY="0.7"
-                motion:framePosition="60"
+                motion:framePosition="40"
                 motion:motionTarget="@+id/imageView" />
+
             <KeyAttribute
-                android:scaleY="50"
+                android:scaleX="50.0"
                 motion:framePosition="100"
                 motion:motionTarget="@+id/imageView" />
             <KeyAttribute
-                android:scaleX="50"
+                android:scaleY="50.0"
                 motion:framePosition="100"
-                motion:motionTarget="@+id/imageView" />
-            <KeyAttribute
-                android:scaleX="1"
-                motion:framePosition="30"
-                motion:motionTarget="@+id/imageView" />
-            <KeyAttribute
-                android:scaleY="1"
-                motion:framePosition="30"
                 motion:motionTarget="@+id/imageView" />
         </KeyFrameSet>
-        <OnClick motion:targetId="@+id/imageView" />
     </Transition>
 
-    <ConstraintSet android:id="@+id/start"></ConstraintSet>
+    <ConstraintSet android:id="@+id/start">
+        <Constraint
+            android:id="@+id/imageView"
+            android:layout_width="128dp"
+            android:layout_height="128dp"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:transitionEasing="accelerate" />
+    </ConstraintSet>
 
     <ConstraintSet android:id="@+id/end"></ConstraintSet>
 </MotionScene>

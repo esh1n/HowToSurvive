@@ -21,14 +21,13 @@ class SplashViewModel : ViewModel() {
 
     val splashNavCommand: LiveData<SplashNavCommand?> = _splashNavCommand
 
-    init {
-        // Add special delay for splash screen
+    fun onSplashShown() {
         viewModelScope.launch {
 
             val navCommand = if (authRepository.hasAuthData()) {
                 SplashNavCommand.NAVIGATE_TO_MAIN
             } else {
-                SplashNavCommand.NAVIGATE_TO_AUTH
+                SplashNavCommand.NAVIGATE_TO_ONBOARDING
             }
             _splashNavCommand.postValue(navCommand)
         }

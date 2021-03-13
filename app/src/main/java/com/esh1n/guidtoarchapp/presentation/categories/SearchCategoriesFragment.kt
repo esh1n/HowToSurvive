@@ -48,6 +48,7 @@ class SearchCategoriesFragment : Fragment(R.layout.fragment_categories) {
             @OnLifecycleEvent(Lifecycle.Event.ON_START)
             fun onStart() {
                 getParentToolbar()?.run {
+                    menu?.clear()
                     inflateMenu(R.menu.menu_main)
                     menu?.let(::setupSearchView)
                 }
@@ -65,11 +66,12 @@ class SearchCategoriesFragment : Fragment(R.layout.fragment_categories) {
 
     private fun setupSearchView(menu: Menu) {
         menu.findItem(R.id.action_search)?.run {
-            expandActionView()
+            //expandActionView()
             actionView.clearFocus()
             searchView = (actionView as SearchView).apply {
                 queryHint = getString(queryHintResourceId())
-                onActionViewExpanded()
+                //onActionViewExpanded()
+                //onActionViewCollapsed()
                 setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                     override fun onQueryTextSubmit(query: String?): Boolean {
                         return true

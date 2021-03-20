@@ -5,6 +5,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.esh1n.guidtoarchapp.R
@@ -14,6 +15,7 @@ import com.esh1n.guidtoarchapp.presentation.articles.viewmodel.Effect
 import com.esh1n.guidtoarchapp.presentation.articles.viewmodel.Wish
 import com.esh1n.guidtoarchapp.presentation.utils.*
 import com.esh1n.guidtoarchapp.presentation.utils.UiUtils.adapter
+import com.esh1n.guidtoarchapp.presentation.utils.UiUtils.click
 import com.esh1n.guidtoarchapp.presentation.utils.itemdecoration.Decorator
 import com.esh1n.guidtoarchapp.presentation.utils.itemdecoration.decor.CircleBarDecor
 import com.esh1n.guidtoarchapp.presentation.utils.itemdecoration.decor.ScrollBarDecor
@@ -32,6 +34,7 @@ class ArticleFragment : Fragment(R.layout.fragment_article) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         viewModel.passWish(Wish.OnLoadArticle(args.articleId))
     }
 
@@ -57,6 +60,13 @@ class ArticleFragment : Fragment(R.layout.fragment_article) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        button_next_article.click {
+            findNavController().navigate(
+                ArticleFragmentDirections.actionArticleFragmentToArticleFragment(
+                    "Ожог"
+                )
+            )
+        }
         with(recyclerview) {
             this.adapter = ArticleContentAdapter(
                 requireActivity(),

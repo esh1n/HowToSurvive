@@ -17,7 +17,7 @@
         tools:listitem="@layout/item_article" />
 
     <Button
-        android:id="@+id/fragment_button__next_article"
+        android:id="@+id/button_next_article"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_small"

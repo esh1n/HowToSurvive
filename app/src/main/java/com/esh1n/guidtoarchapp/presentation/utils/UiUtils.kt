@@ -3,6 +3,7 @@ package com.esh1n.guidtoarchapp.presentation.utils
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.net.Uri
 import android.text.*
 import android.text.method.LinkMovementMethod
@@ -109,9 +110,21 @@ val Context.density
 @ColorInt
 fun Context.getIntColor(@ColorRes colorRes: Int): Int = ContextCompat.getColor(this, colorRes)
 
+
+fun Context.getColorStateListFromAttribute(attrId: Int): ColorStateList? {
+    val typedArray = theme.obtainStyledAttributes(intArrayOf(attrId))
+    return typedArray.getColorStateList(0).apply { typedArray.recycle() }
+}
+
+fun Context.getColorStateListFromRes(colorRes: Int) =
+    ContextCompat.getColorStateList(this, colorRes)
+
 @ColorInt
 fun Context.getColorFromAttribute(attrId: Int): Int {
     val typedArray = theme.obtainStyledAttributes(intArrayOf(attrId))
     return typedArray.getColor(0, 0).apply { typedArray.recycle() }
 }
+
+@ColorInt
+fun Fragment.getColorFromAttribute(attrId: Int) = requireContext().getColorFromAttribute(attrId)
 

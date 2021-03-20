@@ -1,18 +1,17 @@
-package ru.ozh.recycler.decorator.chat.decor
+package com.esh1n.guidtoarchapp.presentation.utils.itemdecoration.decor
 
 import android.graphics.Canvas
-import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.RectF
 import androidx.recyclerview.widget.RecyclerView
-import com.esh1n.guidtoarchapp.presentation.utils.itemdecoration.decor.ScrollProgressDecor
 
-class CircleBarDecor(private val circleDiameter: Int) : ScrollProgressDecor() {
+class CircleBarDecor(private val circleDiameter: Int, private val color: Int) :
+    ScrollProgressDecor() {
 
     private val paint = Paint()
         .apply {
             isAntiAlias = true
-            color = Color.LTGRAY
+            color = this@CircleBarDecor.color
         }
 
 

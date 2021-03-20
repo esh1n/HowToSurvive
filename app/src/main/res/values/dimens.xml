@@ -22,11 +22,18 @@
     <dimen name="margin_small">8dp</dimen>
     <dimen name="margin_smallest">4dp</dimen>
 
+    <dimen name="circle_bar_radius">40dp</dimen>
+    <dimen name="scroll_bar_width">3dp</dimen>
+
+
     <dimen name="component_label_horizontal_margin">@dimen/keyline_4</dimen>
     <dimen name="elevation_default_top_app_bar">4dp</dimen>
     <dimen name="bottom_sheet_elevation">5dp</dimen>
 
+    <dimen name="tall_toolbar_height">72dp</dimen>
+
     <dimen name="radio_button_size">41dp</dimen>
+
 
     <integer name="reply_motion_duration_large">300</integer>
     <integer name="reply_motion_duration_medium">225</integer>

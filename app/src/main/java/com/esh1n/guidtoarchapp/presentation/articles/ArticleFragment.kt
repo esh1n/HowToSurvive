@@ -12,21 +12,23 @@ import com.esh1n.guidtoarchapp.presentation.articles.adapter.ArticleContentAdapt
 import com.esh1n.guidtoarchapp.presentation.articles.viewmodel.ArticleViewModel
 import com.esh1n.guidtoarchapp.presentation.articles.viewmodel.Effect
 import com.esh1n.guidtoarchapp.presentation.articles.viewmodel.Wish
+import com.esh1n.guidtoarchapp.presentation.utils.*
 import com.esh1n.guidtoarchapp.presentation.utils.UiUtils.adapter
 import com.esh1n.guidtoarchapp.presentation.utils.itemdecoration.Decorator
+import com.esh1n.guidtoarchapp.presentation.utils.itemdecoration.decor.CircleBarDecor
 import com.esh1n.guidtoarchapp.presentation.utils.itemdecoration.decor.ScrollBarDecor
-import com.esh1n.guidtoarchapp.presentation.utils.openBrowser
-import com.esh1n.guidtoarchapp.presentation.utils.showToast
-import com.esh1n.guidtoarchapp.presentation.utils.toPixels
 import kotlinx.android.synthetic.main.fragment_article.*
 import kotlinx.coroutines.flow.collect
-import ru.ozh.recycler.decorator.chat.decor.CircleBarDecor
 
 class ArticleFragment : Fragment(R.layout.fragment_article) {
 
     private val viewModel: ArticleViewModel by viewModels()
 
     private val args: ArticleFragmentArgs by navArgs()
+
+    private val circleBarRadius by lazy { toPixelsFromResource(R.dimen.circle_bar_radius) }
+
+    private val scrollBarWidth by lazy { toPixelsFromResource(R.dimen.scroll_bar_width) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,9 +63,12 @@ class ArticleFragment : Fragment(R.layout.fragment_article) {
                 { viewModel.passWish(Wish.OnToggleSaved(it)) },
                 { viewModel.passWish(Wish.OnOpenLink(it)) }
             )
+            val color = requireContext()
+                .getColorStateListFromRes(R.color.circle_bar_color)?.defaultColor
+                ?: getColorFromAttribute(R.attr.colorSecondary)
             val decorator = Decorator.Builder()
-                .underlay(CircleBarDecor(context.toPixels(100)))
-                .overlay(ScrollBarDecor(context.toPixels(8)))
+                .underlay(CircleBarDecor(circleBarRadius, color))
+                .overlay(ScrollBarDecor(scrollBarWidth))
                 .build()
             addItemDecoration(decorator)
             layoutManager = LinearLayoutManager(requireActivity())

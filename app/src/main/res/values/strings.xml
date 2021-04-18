@@ -25,6 +25,7 @@
     <string name="main_bottom_navigation__profile">Profile</string>
     <string name="next_article">Следующая статья</string>
     <string name="fragment_settings_title">Настройки</string>
+    <string name="fragment_profile_title">Профиль</string>
     <!-- region Auth flow -->
     <string name="fragment_start_auth__title">Start auth</string>
     <string name="fragment_start_auth__open_next_screen">Open next auth screen</string>

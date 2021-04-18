@@ -2,56 +2,49 @@ package com.esh1n.guidtoarchapp.presentation.articles
 
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.esh1n.guidtoarchapp.R
 import com.esh1n.guidtoarchapp.presentation.RootActivity
 import com.esh1n.guidtoarchapp.presentation.articles.adapter.ArticlesAdapter
 import com.esh1n.guidtoarchapp.presentation.articles.viewmodel.SavedArticlesVM
+import com.esh1n.guidtoarchapp.presentation.utils.UiUtils.adapter
+import com.esh1n.guidtoarchapp.presentation.utils.observeNonNull
 import com.esh1n.guidtoarchapp.presentation.utils.setABTitle
+import kotlinx.android.synthetic.main.fragment_articles.*
+import kotlinx.android.synthetic.main.fragment_articles.recyclerview
+import kotlinx.android.synthetic.main.fragment_categories.*
 
 class SavedArticlesFragment : Fragment(R.layout.fragment_articles) {
-
-    private lateinit var adapter: ArticlesAdapter
 
     private lateinit var viewModel: SavedArticlesVM
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d("Lifecycle", "onViewCreated")
-        val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerview)
-        adapter = ArticlesAdapter(requireActivity(), this::openArticleById)
-        val dividerItemDecoration =
-            DividerItemDecoration(requireActivity(), DividerItemDecoration.VERTICAL)
-        recyclerView.adapter = adapter
-        recyclerView.addItemDecoration(dividerItemDecoration)
-        recyclerView.layoutManager = LinearLayoutManager(requireActivity())
-        val title = getString(R.string.favorite_articles)
-        (requireActivity() as RootActivity).setABTitle(title)
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        Log.d("Lifecycle", "onActivityCreated")
-        super.onActivityCreated(savedInstanceState)
+        with(recyclerview) {
+            adapter =
+                ArticlesAdapter(requireActivity(), this@SavedArticlesFragment::openArticleById)
+            addItemDecoration(
+                DividerItemDecoration(
+                    requireActivity(),
+                    DividerItemDecoration.VERTICAL
+                )
+            )
+            layoutManager = LinearLayoutManager(requireActivity())
+        }
         viewModel = ViewModelProvider(this).get(SavedArticlesVM::class.java)
         observeData()
+        (requireActivity() as RootActivity).setABTitle(getString(R.string.favorite_articles))
     }
 
     private fun observeData() {
         viewModel.getSavedArticles()
-            .observe(viewLifecycleOwner, Observer { articles ->
-                // Update the cached copy of the words in the adapter.
-                articles?.let {
-                    val articleStrings = articles.map { it.name }
-                    adapter.setArticles(articleStrings)
-                }
+            .observeNonNull(viewLifecycleOwner, { articles ->
+                recyclerview.adapter<ArticlesAdapter>().setArticles(articles.map { it.name })
             })
     }
 

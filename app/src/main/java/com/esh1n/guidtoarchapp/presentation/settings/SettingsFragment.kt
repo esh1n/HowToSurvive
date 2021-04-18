@@ -2,6 +2,8 @@ package com.esh1n.guidtoarchapp.presentation.settings
 
 import android.os.Bundle
 import android.view.View
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.esh1n.guidtoarchapp.R
@@ -10,10 +12,13 @@ import kotlinx.android.synthetic.main.fragment_settings.*
 
 class SettingsFragment : Fragment(R.layout.fragment_settings) {
 
+    private var onBackPressedCallback: OnBackPressedCallback? = null
+
     private val themeSwitcherViewModel: ThemeSwitcherViewModel by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
 
         themeSwitcherViewModel.isDarkThemeLive.observe(
             viewLifecycleOwner,
@@ -25,6 +30,10 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
         switch_dark_theme.setOnCheckedChangeListener { _, checked ->
             themeSwitcherViewModel.setIsDarkTheme(checked)
         }
+        onBackPressedCallback =
+            requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, false) {
+                //showToast("есть изменения!")
+            }
     }
 
 }

@@ -34,7 +34,6 @@ class ArticleFragment : Fragment(R.layout.fragment_article) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         viewModel.passWish(Wish.OnLoadArticle(args.articleId))
     }
 

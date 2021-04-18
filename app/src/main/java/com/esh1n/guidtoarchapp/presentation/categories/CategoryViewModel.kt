@@ -1,7 +1,6 @@
 package com.esh1n.guidtoarchapp.presentation.categories
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
 import com.esh1n.guidtoarchapp.data.CategoryEntry
 import com.esh1n.guidtoarchapp.presentation.di.GlobalDI
 import kotlinx.coroutines.Dispatchers
@@ -11,7 +10,7 @@ import kotlinx.coroutines.flow.*
 
 @FlowPreview
 @ExperimentalCoroutinesApi
-class CategoryViewModel(application: Application) : AndroidViewModel(application) {
+class CategoryViewModel : ViewModel() {
 
     private val categoriesRepository = GlobalDI.getCategoriesRepository()
 

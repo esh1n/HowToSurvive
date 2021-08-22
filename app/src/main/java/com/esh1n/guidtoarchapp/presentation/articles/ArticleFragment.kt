@@ -21,6 +21,7 @@ import com.esh1n.guidtoarchapp.presentation.utils.itemdecoration.decor.CircleBar
 import com.esh1n.guidtoarchapp.presentation.utils.itemdecoration.decor.ScrollBarDecor
 import kotlinx.android.synthetic.main.fragment_article.*
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 class ArticleFragment : Fragment(R.layout.fragment_article) {
 
@@ -38,7 +39,7 @@ class ArticleFragment : Fragment(R.layout.fragment_article) {
     }
 
     private fun observeData() {
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+        viewLifecycleOwner.lifecycleScope.launch {
             viewModel.uiState.collect {
                 recyclerview.adapter<ArticleContentAdapter>().setArticleItems(it.articleParts)
             }

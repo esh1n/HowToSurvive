@@ -16,8 +16,11 @@ import com.esh1n.guidtoarchapp.presentation.articles.viewmodel.ArticlesByCategor
 import com.esh1n.guidtoarchapp.presentation.utils.UiUtils.adapter
 import com.esh1n.guidtoarchapp.presentation.utils.observeNonNull
 import com.esh1n.guidtoarchapp.presentation.utils.setABTitle
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_articles.*
 
+
+@AndroidEntryPoint
 class ArticlesByCategoryFragment : Fragment(R.layout.fragment_articles) {
 
     private val viewModel: ArticlesByCategoryViewModel by viewModels()

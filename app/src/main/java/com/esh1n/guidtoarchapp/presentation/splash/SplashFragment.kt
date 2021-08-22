@@ -9,9 +9,11 @@ import androidx.navigation.Navigation
 import com.aaglobal.jnc_playground.ui.splash.SplashNavCommand
 import com.aaglobal.jnc_playground.ui.splash.SplashViewModel
 import com.esh1n.guidtoarchapp.R
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_splash.*
 
 
+@AndroidEntryPoint
 class SplashFragment : Fragment(R.layout.fragment_splash) {
 
     private val viewModel: SplashViewModel by viewModels()

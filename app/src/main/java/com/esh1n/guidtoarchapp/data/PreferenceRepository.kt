@@ -20,20 +20,21 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.esh1n.guidtoarchapp.domain.IPrefsRepo
+import javax.inject.Inject
 
-/**
- * A simple data repository for in-app settings.
- */
-class PreferenceRepository(private val sharedPreferences: SharedPreferences) {
+class PreferenceRepository @Inject constructor(private val sharedPreferences: SharedPreferences) :
+    IPrefsRepo {
 
     private val nightMode: Int
         get() = sharedPreferences.getInt(PREFERENCE_NIGHT_MODE, PREFERENCE_NIGHT_MODE_DEF_VAL)
 
     private val _nightModeLive: MutableLiveData<Int> = MutableLiveData()
-    val nightModeLive: LiveData<Int>
+
+    override val nightModeLive: LiveData<Int>
         get() = _nightModeLive
 
-    var isDarkTheme: Boolean = false
+    override var isDarkTheme: Boolean = false
         get() = nightMode == AppCompatDelegate.MODE_NIGHT_YES
         set(value) {
             sharedPreferences.edit().putInt(
@@ -47,8 +48,13 @@ class PreferenceRepository(private val sharedPreferences: SharedPreferences) {
         }
 
     private val _isDarkThemeLive: MutableLiveData<Boolean> = MutableLiveData()
-    val isDarkThemeLive: LiveData<Boolean>
+
+    override val isDarkThemeLive: LiveData<Boolean>
         get() = _isDarkThemeLive
+    override val firstLaunch: Boolean
+        get() = sharedPreferences.getBoolean(FIRST_LAUNCH, true).also {
+            sharedPreferences.edit().putBoolean(FIRST_LAUNCH, false).apply()
+        }
 
     private val preferenceChangedListener =
         SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
@@ -70,6 +76,7 @@ class PreferenceRepository(private val sharedPreferences: SharedPreferences) {
 
     companion object {
         private const val PREFERENCE_NIGHT_MODE = "preference_night_mode"
+        private const val FIRST_LAUNCH = "FIRST_LAUNCH"
         private const val PREFERENCE_NIGHT_MODE_DEF_VAL = AppCompatDelegate.MODE_NIGHT_NO
     }
 }

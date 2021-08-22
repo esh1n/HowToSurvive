@@ -1,18 +1,18 @@
 package com.esh1n.guidtoarchapp.presentation
 
 import androidx.lifecycle.ViewModel
-import com.esh1n.guidtoarchapp.presentation.di.GlobalDI
+import com.esh1n.guidtoarchapp.domain.IPrefsRepo
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class ThemeSwitcherViewModel : ViewModel() {
+@HiltViewModel
+class ThemeSwitcherViewModel @Inject constructor(private val prefsRepo: IPrefsRepo) : ViewModel() {
 
-    private val repo = GlobalDI.getPreferenceRepository()
+    val nighModeLiveData = prefsRepo.nightModeLive
 
-    val nighModeLiveData = repo.nightModeLive
-
-    val isDarkThemeLive = repo.isDarkThemeLive
+    val isDarkThemeLive = prefsRepo.isDarkThemeLive
 
     fun setIsDarkTheme(isDark: Boolean) {
-        repo.isDarkTheme = isDark
+        prefsRepo.isDarkTheme = isDark
     }
-
 }

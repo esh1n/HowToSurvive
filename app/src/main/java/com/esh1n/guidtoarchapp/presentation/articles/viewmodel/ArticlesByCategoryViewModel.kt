@@ -1,21 +1,24 @@
 package com.esh1n.guidtoarchapp.presentation.articles.viewmodel
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import com.esh1n.guidtoarchapp.data.ArticleEntry
 import com.esh1n.guidtoarchapp.data.CategoryEntry
-import com.esh1n.guidtoarchapp.presentation.di.GlobalDI
+import com.esh1n.guidtoarchapp.domain.ArticlesRepository
+import com.esh1n.guidtoarchapp.domain.CategoriesRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
+@HiltViewModel
+class ArticlesByCategoryViewModel @Inject constructor(
+    private val categoriesRepository: CategoriesRepository,
+    private val articlesRepository: ArticlesRepository
+) : ViewModel() {
 
-class ArticlesByCategoryViewModel(application: Application) : AndroidViewModel(application) {
-
-    private val categoriesRepository = GlobalDI.getCategoriesRepository()
-    private val articlesRepository = GlobalDI.getArticlesRepository()
 
     fun getArticlesByCategory(catName: String): LiveData<List<ArticleEntry>> {
         return liveData {

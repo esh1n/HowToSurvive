@@ -17,11 +17,7 @@
 package com.esh1n.guidtoarchapp
 
 import android.app.Application
-import com.esh1n.guidtoarchapp.presentation.di.GlobalDI
+import dagger.hilt.android.HiltAndroidApp
 
-class App : Application() {
-    override fun onCreate() {
-        super.onCreate()
-        GlobalDI.initWithContext(this)
-    }
-}
+@HiltAndroidApp
+class App : Application() {}

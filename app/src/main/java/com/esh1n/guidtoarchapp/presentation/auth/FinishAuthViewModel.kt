@@ -1,16 +1,14 @@
 package com.esh1n.guidtoarchapp.presentation.auth
 
 import androidx.lifecycle.ViewModel
-import com.esh1n.guidtoarchapp.presentation.di.GlobalDI
+import com.esh1n.guidtoarchapp.domain.IAuthRepo
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-
-class FinishAuthViewModel : ViewModel() {
-
-    private val authRepository = GlobalDI.getAuthRepository()
-
+@HiltViewModel
+class FinishAuthViewModel @Inject constructor(private val iAuthRepo: IAuthRepo) : ViewModel() {
 
     fun setFinishAuthFlag() {
-        authRepository.putHasAuthData(true)
+        iAuthRepo.updateAuth(true)
     }
-
 }

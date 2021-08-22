@@ -15,10 +15,12 @@ import com.esh1n.guidtoarchapp.presentation.articles.viewmodel.SavedArticlesVM
 import com.esh1n.guidtoarchapp.presentation.utils.UiUtils.adapter
 import com.esh1n.guidtoarchapp.presentation.utils.observeNonNull
 import com.esh1n.guidtoarchapp.presentation.utils.setABTitle
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_articles.*
 import kotlinx.android.synthetic.main.fragment_articles.recyclerview
 import kotlinx.android.synthetic.main.fragment_categories.*
 
+@AndroidEntryPoint
 class SavedArticlesFragment : Fragment(R.layout.fragment_articles) {
 
     private lateinit var viewModel: SavedArticlesVM

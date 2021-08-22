@@ -9,8 +9,9 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.conflate
 import kotlinx.coroutines.flow.flowOn
+import javax.inject.Inject
 
-class CategoriesRepository(private val categoryDao: CategoryDao) {
+class CategoriesRepository @Inject constructor(private val categoryDao: CategoryDao) {
 
     val allCategories: LiveData<List<CategoryEntry>> = categoryDao.getAllCategories()
 

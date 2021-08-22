@@ -6,9 +6,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.esh1n.guidtoarchapp.R
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_finish_auth.*
 
 
+@AndroidEntryPoint
 class FinishAuthFragment : Fragment(R.layout.fragment_finish_auth) {
 
     private val finishAuthViewModel: FinishAuthViewModel by viewModels()

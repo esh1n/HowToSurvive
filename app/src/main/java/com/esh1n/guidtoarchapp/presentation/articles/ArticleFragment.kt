@@ -19,10 +19,13 @@ import com.esh1n.guidtoarchapp.presentation.utils.UiUtils.click
 import com.esh1n.guidtoarchapp.presentation.utils.itemdecoration.Decorator
 import com.esh1n.guidtoarchapp.presentation.utils.itemdecoration.decor.CircleBarDecor
 import com.esh1n.guidtoarchapp.presentation.utils.itemdecoration.decor.ScrollBarDecor
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_article.*
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
+
+@AndroidEntryPoint
 class ArticleFragment : Fragment(R.layout.fragment_article) {
 
     private val viewModel: ArticleViewModel by viewModels()

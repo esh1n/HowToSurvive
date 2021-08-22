@@ -21,16 +21,20 @@ import com.esh1n.guidtoarchapp.presentation.utils.getColorFromAttribute
 import com.esh1n.guidtoarchapp.presentation.utils.itemdecoration.Decorator
 import com.esh1n.guidtoarchapp.presentation.utils.itemdecoration.decor.*
 import com.esh1n.guidtoarchapp.presentation.utils.toPixels
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_categories.*
 import kotlinx.android.synthetic.main.fragment_main.view.*
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 
+@AndroidEntryPoint
 class SearchCategoriesFragment : Fragment(R.layout.fragment_categories) {
 
     private val viewModel: CategoryViewModel by viewModels()
 
     private var searchView: SearchView? = null
 
+    @ExperimentalCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         with(recyclerview) {
@@ -90,6 +94,8 @@ class SearchCategoriesFragment : Fragment(R.layout.fragment_categories) {
     @StringRes
     private fun queryHintResourceId() = R.string.text_search_tegories
 
+    @ExperimentalCoroutinesApi
+    @kotlinx.coroutines.FlowPreview
     private fun observeData() {
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.uiState.collect(::handleUiState)

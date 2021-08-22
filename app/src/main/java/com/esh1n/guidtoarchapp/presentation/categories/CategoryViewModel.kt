@@ -2,17 +2,19 @@ package com.esh1n.guidtoarchapp.presentation.categories
 
 import androidx.lifecycle.ViewModel
 import com.esh1n.guidtoarchapp.data.CategoryEntry
-import com.esh1n.guidtoarchapp.presentation.di.GlobalDI
+import com.esh1n.guidtoarchapp.domain.CategoriesRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.*
+import javax.inject.Inject
 
 @FlowPreview
 @ExperimentalCoroutinesApi
-class CategoryViewModel : ViewModel() {
-
-    private val categoriesRepository = GlobalDI.getCategoriesRepository()
+@HiltViewModel
+class CategoryViewModel @Inject constructor(private val categoriesRepository: CategoriesRepository) :
+    ViewModel() {
 
     private val queryFlow = MutableStateFlow("")
 

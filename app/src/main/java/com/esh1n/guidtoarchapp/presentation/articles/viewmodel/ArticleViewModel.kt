@@ -2,12 +2,13 @@ package com.esh1n.guidtoarchapp.presentation.articles.viewmodel
 
 import androidx.lifecycle.viewModelScope
 import com.esh1n.guidtoarchapp.data.ArticleEntry
+import com.esh1n.guidtoarchapp.domain.ArticlesRepository
 import com.esh1n.guidtoarchapp.presentation.articles.adapter.*
-import com.esh1n.guidtoarchapp.presentation.di.GlobalDI
 import com.esh1n.guidtoarchapp.presentation.mvibase.BaseViewModel
 import com.esh1n.guidtoarchapp.presentation.mvibase.UiEffect
 import com.esh1n.guidtoarchapp.presentation.mvibase.UiState
 import com.esh1n.guidtoarchapp.presentation.mvibase.UiWish
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flowOn
@@ -15,20 +16,18 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import java.util.regex.Matcher
 import java.util.regex.Pattern
+import javax.inject.Inject
 
-
-class ArticleViewModel : BaseViewModel<Wish, State, Effect>() {
-
-    private val articlesRepository = GlobalDI.getArticlesRepository()
+@HiltViewModel
+class ArticleViewModel @Inject constructor(private val articlesRepository: ArticlesRepository) :
+    BaseViewModel<Wish, State, Effect>() {
 
     @SuppressWarnings
     private fun mapArticleToBaseModel(articleEntry: ArticleEntry): List<UiArticlePart> {
         val items = arrayListOf<UiArticlePart>(TitleModel(articleEntry.name, articleEntry.isSaved))
         val m: Matcher = Pattern.compile("\\{([^}]+)\\}").matcher(articleEntry.content)
         while (m.find()) {
-            val item = mapContentToBaseModel(m.group(1))
-            items.add(item)
-
+            m.group(1)?.let(::mapContentToBaseModel)?.let(items::add)
         }
         return items
     }
@@ -85,8 +84,3 @@ sealed class Effect : UiEffect {
     data class ShowArticleStateChangedToast(val saved: Boolean) : Effect()
     data class OnOpenLink(val link: String) : Effect()
 }
-//sealed class RandomNumberState {
-//    object Idle : RandomNumberState()
-//    object Loading : RandomNumberState()
-//    data class Categories(val number : Int) : RandomNumberState()
-//}

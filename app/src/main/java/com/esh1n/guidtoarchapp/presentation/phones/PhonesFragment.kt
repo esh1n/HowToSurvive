@@ -11,7 +11,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.esh1n.guidtoarchapp.R
 import com.esh1n.guidtoarchapp.data.PhoneEntry
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class PhonesFragment : Fragment(R.layout.fragment_phones) {
     private var adapter: PhonesAdapter? = null
 

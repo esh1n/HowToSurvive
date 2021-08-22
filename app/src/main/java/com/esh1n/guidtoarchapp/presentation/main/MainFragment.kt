@@ -8,11 +8,13 @@ import androidx.navigation.NavController
 import androidx.navigation.ui.setupWithNavController
 import com.esh1n.guidtoarchapp.R
 import com.esh1n.guidtoarchapp.presentation.utils.setupWithNavController
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_main.*
 
 /**
  * Main fragment -- container for bottom navigation
  */
+@AndroidEntryPoint
 class MainFragment : Fragment(R.layout.fragment_main) {
 
     private var currentNavController: LiveData<NavController>? = null

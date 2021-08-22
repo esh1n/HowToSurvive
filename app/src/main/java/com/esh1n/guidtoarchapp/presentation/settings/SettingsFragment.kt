@@ -8,8 +8,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.esh1n.guidtoarchapp.R
 import com.esh1n.guidtoarchapp.presentation.ThemeSwitcherViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_settings.*
 
+@AndroidEntryPoint
 class SettingsFragment : Fragment(R.layout.fragment_settings) {
 
     private var onBackPressedCallback: OnBackPressedCallback? = null
@@ -24,7 +26,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
             viewLifecycleOwner,
             { isDarkTheme ->
                 switch_dark_theme.setText(if (isDarkTheme) R.string.text_turn_on_dark_theme else R.string.text_turn_off_dark_theme)
-                isDarkTheme?.let { switch_dark_theme.isChecked = it }
+                isDarkTheme?.let(switch_dark_theme::setChecked)
             })
 
         switch_dark_theme.setOnCheckedChangeListener { _, checked ->

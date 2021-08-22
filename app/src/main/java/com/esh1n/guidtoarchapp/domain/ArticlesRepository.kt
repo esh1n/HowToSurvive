@@ -4,9 +4,10 @@ import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
 import com.esh1n.guidtoarchapp.data.ArticleDao
 import com.esh1n.guidtoarchapp.data.ArticleEntry
+import javax.inject.Inject
 
 
-class ArticlesRepository(private val articleDao: ArticleDao) {
+class ArticlesRepository @Inject constructor(private val articleDao: ArticleDao) {
     fun savedArticles(): LiveData<List<ArticleEntry>> =
         articleDao.getSavedArticles()
 

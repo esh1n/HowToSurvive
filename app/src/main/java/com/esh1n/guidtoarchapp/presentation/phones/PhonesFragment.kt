@@ -28,10 +28,7 @@ class PhonesFragment : Fragment(R.layout.fragment_phones) {
         recyclerView.adapter = adapter
         recyclerView.addItemDecoration(dividerItemDecoration)
         recyclerView.layoutManager = LinearLayoutManager(requireActivity())
-    }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
         val phones = arrayListOf(PhoneEntry("единый телефон экстренных служб", "112"),
             PhoneEntry("пожарная служба и спасатели", "101"),
             PhoneEntry("полиция", "102"),
@@ -40,6 +37,7 @@ class PhonesFragment : Fragment(R.layout.fragment_phones) {
             PhoneEntry("«телефон доверия»", "+7 (495) 637-22-22"))
         adapter?.setPhones(phones)
     }
+
 
     private fun openPhone(phone: PhoneEntry) {
         startDialer(requireActivity(), phone.content)

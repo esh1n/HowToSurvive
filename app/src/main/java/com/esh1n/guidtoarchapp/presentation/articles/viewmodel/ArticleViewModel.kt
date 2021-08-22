@@ -21,6 +21,7 @@ class ArticleViewModel : BaseViewModel<Wish, State, Effect>() {
 
     private val articlesRepository = GlobalDI.getArticlesRepository()
 
+    @SuppressWarnings
     private fun mapArticleToBaseModel(articleEntry: ArticleEntry): List<UiArticlePart> {
         val items = arrayListOf<UiArticlePart>(TitleModel(articleEntry.name, articleEntry.isSaved))
         val m: Matcher = Pattern.compile("\\{([^}]+)\\}").matcher(articleEntry.content)

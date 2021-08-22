@@ -41,12 +41,12 @@ object UiUtils {
         fun setTo(textView: TextView, clickAction: () -> Unit) {
             textView.movementMethod = LinkMovementMethod.getInstance()
             textView.setText(
-                getSpannable(textView.context, clickAction),
+                getSpannable(clickAction),
                 TextView.BufferType.SPANNABLE
             )
         }
 
-        private fun getSpannable(context: Context, clickAction: () -> Unit): SpannableString {
+        private fun getSpannable(clickAction: () -> Unit): SpannableString {
             val startPos = 0
             val endPos = text.length
             val spannableString = SpannableString(text)

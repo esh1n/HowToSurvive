@@ -24,7 +24,7 @@ class LinearDividerDrawer(private val gap: Gap) : Decorator.ViewHolderDecor {
     ) {
         val viewHolder = recyclerView.getChildViewHolder(view)
         val nextViewHolder =
-            recyclerView.findViewHolderForAdapterPosition(viewHolder.adapterPosition + 1)
+            recyclerView.findViewHolderForAdapterPosition(viewHolder.bindingAdapterPosition + 1)
 
         val startX = recyclerView.paddingLeft + gap.paddingStart
         val startY = view.bottom + view.translationY

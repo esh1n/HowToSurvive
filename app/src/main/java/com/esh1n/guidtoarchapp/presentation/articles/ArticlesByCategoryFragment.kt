@@ -53,8 +53,8 @@ class ArticlesByCategoryFragment : Fragment(R.layout.fragment_articles) {
         (requireActivity() as RootActivity).setABTitle(title)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onStart() {
+        super.onStart()
         observeData()
     }
 

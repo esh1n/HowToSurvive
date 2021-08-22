@@ -21,9 +21,9 @@ class RoundDecor(
 
         val viewHolder = recyclerView.getChildViewHolder(view)
         val nextViewHolder =
-            recyclerView.findViewHolderForAdapterPosition(viewHolder.adapterPosition + 1)
+            recyclerView.findViewHolderForAdapterPosition(viewHolder.bindingAdapterPosition + 1)
         val previousChildViewHolder =
-            recyclerView.findViewHolderForAdapterPosition(viewHolder.adapterPosition - 1)
+            recyclerView.findViewHolderForAdapterPosition(viewHolder.bindingAdapterPosition - 1)
 
         if (cornerRadius.compareTo(0f) != 0) {
             val roundMode = getRoundMode(previousChildViewHolder, viewHolder, nextViewHolder)

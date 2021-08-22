@@ -13,7 +13,7 @@ import kotlin.math.ceil
 
 class CategoriesAdapter internal constructor(
     context: Context,
-    private val clickOnItem: (View, CategoryEntry) -> (Unit)
+    private val clickOnItem: (CategoryEntry) -> (Unit)
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
@@ -37,7 +37,7 @@ class CategoriesAdapter internal constructor(
 
         override fun onClick(v: View) {
             (items.getOrNull(bindingAdapterPosition) as? CategoryItem)?.let {
-                clickOnItem(v, it.category)
+                clickOnItem(it.category)
             }
         }
     }
@@ -69,7 +69,7 @@ class CategoriesAdapter internal constructor(
                 holder.populate((current as CategoryItem).category)
             }
             else -> {
-                val bannerHolder = holder as BannerViewHolder
+                //val bannerHolder = holder as BannerViewHolder
                 //bannerHolder
             }
         }

@@ -6,7 +6,7 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
-abstract class BaseViewModel<Event : UiWish, State : UiState, Effect : UiEffect> : ViewModel() {
+abstract class BaseViewModel<Wish : UiWish, State : UiState, Effect : UiEffect> : ViewModel() {
 
     private val initialState: State by lazy { createInitialState() }
     abstract fun createInitialState(): State
@@ -17,7 +17,7 @@ abstract class BaseViewModel<Event : UiWish, State : UiState, Effect : UiEffect>
     private val _uiState: MutableStateFlow<State> = MutableStateFlow(initialState)
     val uiState = _uiState.asStateFlow()
 
-    private val _event: MutableSharedFlow<Event> = MutableSharedFlow()
+    private val _event: MutableSharedFlow<Wish> = MutableSharedFlow()
     val event = _event.asSharedFlow()
 
     private val _effect: Channel<Effect> = Channel()
@@ -29,7 +29,7 @@ abstract class BaseViewModel<Event : UiWish, State : UiState, Effect : UiEffect>
     }
 
     /**
-     * Start listening to Event
+     * Start listening to Wish
      */
     private fun subscribeEvents() {
         viewModelScope.launch {
@@ -42,13 +42,13 @@ abstract class BaseViewModel<Event : UiWish, State : UiState, Effect : UiEffect>
     /**
      * Handle each event
      */
-    abstract fun handleEvent(event: Event)
+    abstract fun handleEvent(wish: Wish)
 
 
     /**
-     * Set new Event
+     * Set new Wish
      */
-    fun passWish(event: Event) {
+    fun passWish(event: Wish) {
         val newEvent = event
         viewModelScope.launch { _event.emit(newEvent) }
     }

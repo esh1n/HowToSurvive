@@ -12,7 +12,7 @@ buildscript {
     ext.navigationComponentVersion = "2.3.0"
     repositories {
         google()
-        jcenter()
+        mavenCentral()
         
     }
     dependencies {
@@ -27,7 +27,7 @@ buildscript {
 allprojects {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
         
     }
 }
